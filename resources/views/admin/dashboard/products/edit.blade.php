@@ -299,7 +299,7 @@
 
                                 @if ($product->galleryGroup && $product->galleryGroup->images && $product->galleryGroup->images->count())
                                 {{-- images Gellary  --}}
-                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image_old">
+                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image_old">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage2">
                                             <button class="accordion-button fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage2" aria-expanded="true" aria-controls="collapseOne">
@@ -334,11 +334,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @endif
 
                                 {{-- images Gellary  --}}
-                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image">
+                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage">
                                             <button class="accordion-button fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="true" aria-controls="collapseOne">
@@ -368,7 +368,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -404,7 +404,7 @@
                                                             @lang('products.image')</label>
                                                         <div class="col-sm-12">
                                                             <input class="form-control" type="file" placeholder="@lang('products.image')" name="image">
-                                                            <span class="text-danger"> Size: 358 x 360</span>
+                                                            {{-- <span class="text-danger"> Size: 358 x 360</span> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -426,32 +426,32 @@
                                                     @endif
                                                 </div>
 
-                                                @livewireStyles
+                                                {{-- @livewireStyles
                                                 @livewire('admin.calculate-after-sale', ['model' => @$product])
-                                                @livewireScripts
+                                                @livewireScripts --}}
 
                                                 {{-- code ------------------------------------------------------------------------------------- --}}
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label for="example-number-email" class="col-sm-2 col-form-label">
-                                                            @lang('products.code')</label>
-                                                        <div class="col-sm-10">
-                                                            <input class="form-control" type="text" placeholder="@lang('products.code')" name="code" value="{{ $product->code ?? old('code') }}">
+                                                        <label for="example-number-email" class="col-sm-12 col-form-label">
+                                                            @lang('products.availability')</label>
+                                                        <div class="col-sm-12">
+                                                            <input class="form-control" type="text" placeholder="@lang('products.availability')" name="code" value="{{ $product->code ?? old('code') }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {{-- sort ------------------------------------------------------------------------------------- --}}
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <label for="example-number-address" class="col-sm-2 col-form-label">
+                                                        <label for="example-number-address" class="col-sm-12 col-form-label">
                                                             @lang('admin.sort')</label>
-                                                        <div class="col-sm-10">
+                                                        <div class="col-sm-12">
                                                             <input class="form-control" type="number" placeholder="@lang('admin.sort')" name="sort" value="{{ $product->sort ?? old('sort') }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {{-- URL ------------------------------------------------------------------------------------- --}}
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="row mb-3">
                                                         <label for="example-number-input" col-form-label>
                                                             @lang('slider.url'):</label>
@@ -459,11 +459,11 @@
                                                             <input class="form-control" type="text" id="example-number-input" name="url" value="{{ @$product->url == 'javascript:void(0)' ? '' : @$product->url }}">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 {{-- feature ------------------------------------------------------------------------------------- --}}
                                                 <div class="col-12">
-                                                    <label class="col-sm-2 col-form-label" for="available">{{ trans('admin.feature') }}</label>
-                                                    <div class="col-sm-10">
+                                                    <label class="col-sm-12 col-form-label" for="available">{{ trans('admin.feature') }}</label>
+                                                    <div class="col-sm-12">
                                                         <input class="form-check form-switch" name="feature" type="checkbox" id="switch1" switch="success" {{ $product->feature == 1 || old('feature') == 1 ? 'checked' : '' }} value="1">
                                                         <label class="form-label" for="switch1" data-on-label=" @lang('admin.yes') " data-off-label=" @lang('admin.no')"></label>
                                                     </div>
@@ -476,12 +476,20 @@
                                                         <label class="form-label" for="switch3" data-on-label=" @lang('admin.yes') " data-off-label=" @lang('admin.no')"></label>
                                                     </div>
                                                 </div>
+                                                {{-- most_selling ------------------------------------------------------------------------------------- --}}
+                                                <div class="col-12">
+                                                    <label class="col-sm-12 col-form-label" for="available">{{ trans('admin.best_seller') }}</label>
+                                                    <div class="col-sm-12">
+                                                        <input class="form-check form-switch" name="most_selling" type="checkbox" id="switch4" switch="success" {{ $product->most_selling == 1 || old('most_selling') == 1 ? 'checked' : '' }} value="1">
+                                                        <label class="form-label" for="switch4" data-on-label=" @lang('admin.yes') " data-off-label=" @lang('admin.no')"></label>
+                                                    </div>
+                                                </div>
 
 
 
                                                 <hr>
                                                 {{-- Pockets Section --}}
-                                                <div class="row mb-3">
+                                                {{-- <div class="row mb-3">
                                                     <label class="col-sm-12 col-form-label" for="available">{{ trans('products.medicine_feature') }}</label>
                                                     <div class="col-sm-12">
                                                         <input class="form-check form-switch" name="has_pockets" type="checkbox" id="has_pockets" switch="success" {{ @$product->has_pockets  ? 'checked' : '' }} value="1">
@@ -530,7 +538,7 @@
                                                             @lang('products.add_pocket')
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
 
                                             </div>
@@ -540,7 +548,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionPockets">
                                         <div class="accordion-item border rounded">
                                             <h2 class="accordion-header" id="headingPockets">
@@ -621,7 +629,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionSetting3">
@@ -711,7 +719,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionSetting4">
                                         <div class="accordion-item border rounded">
                                             <h2 class="accordion-header" id="headingSetting4">
@@ -726,7 +734,6 @@
                                                     <div class="payment_info-row mb-4 p-4 border border-gray-200 rounded-xl shadow-sm bg-white transition duration-150 ease-in-out">
                                                         <div class="row g-3">
                                                             <input type="hidden" name="info[{{ $keyInfo }}][id]" value="{{ $info->id }}">
-                                                            <!-- Multilingual Titles (Full Width) -->
                                                             <div class="col-md-12">
                                                                 <label class="form-label text-sm font-semibold mb-1">Titles</label>
                                                                 <div class="input-group mb-2">
@@ -764,7 +771,6 @@
                                                                 });
                                                             </script>
                                     
-                                                            <!-- Static Fields (Split Layout) -->
                                                             <div class="col-md-4">
                                                                 <label class="form-label text-sm mb-1">Sort </label>
                                                                 <input type="number" name="info[{{ $keyInfo }}][sort]" class="form-control" placeholder="e.g., 10" value="{{ @$info->sort }}" min="1" required>
@@ -795,7 +801,6 @@
                                                     @endforelse
                                                     @endif
 
-                                                    {{-- has_product_tips --}}
                                                     <div id="product_info_section">
                                                         <h4>{{ trans('products.product_info') }}</h4>
                                                         <div id="product_info_section_inputs"></div>
@@ -808,7 +813,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                                 <div class="row mb-3 text-end">

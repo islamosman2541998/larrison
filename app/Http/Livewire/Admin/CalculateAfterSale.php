@@ -24,8 +24,8 @@ class CalculateAfterSale extends Component
     public function updatePrice()
     {
         $this->validate([
-            'price' => 'required|numeric|min:0|max:1000000',
-            'sale' => 'required|numeric|min:0|max:100',
+            'price' => 'nullable|numeric|min:0|max:1000000',
+            'sale' => 'nullable|numeric|min:0|max:100',
             'price_after_sale' => 'nullable|numeric|min:0|max:1000000'
         ]);
 

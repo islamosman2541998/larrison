@@ -273,7 +273,7 @@
 
 
                 {{-- shop ----------------------------------------------------------- --}}
-                {{-- <li>
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                         <span> @lang('admin.shop')</span>
@@ -307,7 +307,7 @@
                         <li><a href="{{ route('admin.rates.index') }}"> @lang('admin.rates')</a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
                 {{-- End shop ----------------------------------------------------------- --}}
 
 
@@ -406,17 +406,27 @@
                         @lang('admin.portfolio-tags')</a></li>
 
 
+
+                              {{--           parent_category             --}}
+
+                <li><a href="{{ route('admin.parent_category.index') }}">
+                        <i class="fas fa-folder"></i>
+                        @lang('parent_category.parent_categories')</a></li>
+
+                              {{--           categories             --}}
+
+                <li><a href="{{ route('admin.product_category.index') }}">
+                        <i class="fas fa-tags"></i>
+                        @lang('admin.product_category')</a></li>
+
+
                 {{--           products             --}}
 
-                {{-- <li><a href="{{ route('admin.products.index') }}">
+                <li><a href="{{ route('admin.products.index') }}">
                         <i class="fas fa-boxes"></i>
-                        @lang('admin.products')</a></li> --}}
+                        @lang('admin.products')</a></li>
 
-                {{--           categories             --}}
-
-                {{-- <li><a href="{{ route('admin.product_category.index') }}">
-                        <i class="fas fa-tags"></i>
-                        @lang('admin.product_category')</a></li> --}}
+          
 
 
                 {{-- services --------------------------------------------------------------- --}}

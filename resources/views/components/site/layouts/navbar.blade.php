@@ -1,78 +1,69 @@
-<!-- Header Section Begin -->
-<header class="header" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2">
-                <div class="header__logo">
-                    <a href="{{ route('site.home') }}"><img
-                            src="{{ asset($settings->getItem(app()->getLocale() == 'en' ? 'logo_en' : 'logo_ar')) }}"
-                            class="logoImg" alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-10">
-                <div class="header__nav__option" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-                    <nav class="header__nav__menu mobile-menu" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-                        <ul>
+<!-- header -->
+<header class="site-header {{ Route::is('site.home') ? '' : 'nav-solid' }}" id="siteHeader">
+
+    <!-- NAV -->
+    <div class="nav-wrap">
+        <div class="container-custom">
+            <nav class="nav-pro">
+
+                <a class="brand" href="{{ route('site.home') }}">
+                    <img class="logoImg"
+                        src="{{ asset($settings->getItem(app()->getLocale() == 'en' ? 'logo_en' : 'logo_ar')) }}"
+                        alt="Logo">
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                   
+
+                    @php
+                        $items = Cache::get('menus');
+                        if ($items == null) {
+                            $items = Cache::rememberForever('menus', function () {
+                                return App\Models\Menue::with('trans')->orderBy('sort', 'ASC')->main()->active()->get();
+                            });
+                        }
+                    @endphp
+                    @include('site.layouts.menuItem')
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="{{ route('site.service_request.index') }}" class="btn-custom btn-primary-custom btn-sm active">@lang('messages.request_service')</a>
+                    <div class="lang-switch d-flex align-items-center ms-lg-3">
+                        @foreach ($locals as $lang)
                             @php
-                                $items = Cache::get('menus');
-                                if ($items == null) {
-                                    $items = Cache::rememberForever('menus', function () {
-                                        return App\Models\Menue::with('trans')
-                                            ->orderBy('sort', 'ASC')
-                                            ->main()
-                                            ->active()
-                                            ->get();
-                                    });
-                                }
+                                $url = LaravelLocalization::getLocalizedURL($lang);
+                                $isActive = app()->getLocale() === $lang;
                             @endphp
-                            @include('site.layouts.menuItem')
-                            <li> <a href="{{ asset('site/img/HULUL.EG (1).pdf') }}" class="profile-link" target="_blank" aria-label="Our Profile">
-                                    <span class="hide-on-mobile text-white">@lang('messages.Profile')</span>
-                                </a>
-                            </li>
-                            <div class="header__actions ">
-                                <a href="{{ route('site.service_request.index') }}" class="btn request-btn " id="startBtn">
-                                    <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_service')
-                                </a>
-                            </div>
-                            <div class="lang-switch d-flex align-items-center ms-lg-3"> 
-                                @foreach ($locals as $lang)
-                                    @php
-                                        $url = LaravelLocalization::getLocalizedURL($lang);
-                                        $isActive = app()->getLocale() === $lang;
-                                    @endphp
 
-                                    <a href="{{ $url }}"
-                                        class="text-white d-inline-flex align-items-center me-3 {{ $isActive ? 'fw-bold text-decoration-underline' : '' }}"
-                                        rel="alternate" hreflang="{{ $lang }}">
-                                        @if ($lang == 'en')
-                                            <i class="fa-solid fa-globe m-2"></i>
-                                            English
-                                        @else
-                                            <i class="fa-solid fa-language me-1"></i>
-                                            عربي
-                                        @endif
-                                    </a>
-                                @endforeach
-                            </div>
-                        </ul>
-                       
-                    </nav>
+                            <a href="{{ $url }}"
+                                class="text-white d-inline-flex align-items-center me-3 {{ $isActive ? 'fw-bold text-decoration-underline' : '' }}"
+                                rel="alternate" hreflang="{{ $lang }}">
+                                @if ($lang == 'en')
+                                    <i class="fa-solid fa-globe m-2"></i>
+                                    English
+                                @else
+                                    <i class="fa-solid fa-language me-1"></i>
+                                    عربي
+                                @endif
+                            </a>
+                        @endforeach
+                    </div>
 
+                    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+                        <span></span><span></span><span></span>
+                    </button>
                 </div>
-            </div>
-        </div>
-<div id="mobile-menu-wrap" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}" data-locale="{{ app()->getLocale() }}"></div>
-    </div>
-</header>
-<!-- Header End -->
 
-<style>
-   [dir="rtl"]  .slicknav_btn {
-    position: absolute;
-    left: 10px !important ;
-    right: auto !important ;
-    top: 26px;
-    background: #00bfe7;
-  }
-</style>
+            </nav>
+        </div>
+    </div>
+
+    <style>
+      .site-header {
+    background: transparent;
+}
+
+.site-header.nav-solid .nav-wrap {
+    background: #263E4E !important;
+}
+    </style>

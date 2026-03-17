@@ -1,102 +1,149 @@
 @extends('site.app')
 
-@section('title', @$product->transNow->meta_title  )
-@section('meta_key', @$product->transNow->meta_key )
-@section('meta_description', @$product->transNow->meta_desc )
-
+@section('title', $product->transNow?->meta_title ?? $product->transNow?->title)
+@section('meta_description', $product->transNow?->meta_desc ?? '')
+@section('meta_key', $product->transNow?->meta_key ?? '')
 
 @section('content')
-<!-- ================== HEADER / BREADCRUMB ================== -->
-<section class="hero wow bounceInDown" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="shell">
-        <div class="crumb">
-            <a class="" href="{{ route('site.home') }}">Home</a> › <a href="{{ route('site.products.index') }}">Products</a>
+
+<section class="product-details-page py-5" id="product-details-page">
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <div class="product-breadcrumb mb-4">
+            <a href="{{ route('site.home') }}">{{ __('site.home') }}</a>
+            <span>/</span>
+
+            @if($parentCategory)
+                <a href="{{ route('site.parent.categories', $parentCategory->transNow?->slug ?? $parentCategory->id) }}">
+                    {{ $parentCategory->transNow?->title }}
+                </a>
+                <span>/</span>
+            @endif
+
+            @if($category)
+                <a href="{{ route('site.category.products', $category->transNow?->slug ?? $category->id) }}">
+                    {{ $category->transNow?->title }}
+                </a>
+                <span>/</span>
+            @endif
+
+            <span class="current">{{ $product->transNow?->title }}</span>
         </div>
-        <h1 class="p-title">{{ $product->transNow->title }}</h1>
-        {{-- <div class="p-sub">{!! $product->transNow->description !!}</div> --}}
-        <div class="under"></div>
+
+        <!-- Main Product Details -->
+        <div class="row g-5 align-items-center">
+
+            <!-- Product Image -->
+            <div class="col-lg-5">
+                <div class="product-details-image">
+                    <img src="{{ asset($product->pathInView()) }}"
+                         alt="{{ $product->transNow?->title }}"
+                         class="img-fluid">
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-lg-7">
+                <div class="product-details-content">
+
+                    <h1 class="product-details-title">{{ $product->transNow?->title }}</h1>
+
+                    <p class="product-details-text">
+                        {!! $product->transNow?->description !!}
+                    </p>
+
+                    <div class="product-details-meta">
+
+                        {{-- Category = Parent Category --}}
+                        @if($parentCategory)
+                            <div class="meta-item">
+                                <strong>{{ __('site.category') }}:</strong>
+                                <span>{{ $parentCategory->transNow?->title }}</span>
+                            </div>
+                        @endif
+
+                        {{-- Type = Product Category --}}
+                        @if($category)
+                            <div class="meta-item">
+                                <strong>{{ __('site.type') }}:</strong>
+                                <span>{{ $category->transNow?->title }}</span>
+                            </div>
+                        @endif
+
+                        @if($product->code)
+                            <div class="meta-item">
+                                <strong>{{ __('site.availability') }}:</strong>
+                                <span>{{ $product->code }}</span>
+                            </div>
+                        @endif
+
+                    </div>
+
+                    <div class="product-details-actions">
+                        <a href="{{ route('site.contact-us') }}" class="btn product-main-btn">
+                            {{ __('site.request_product') }}
+                        </a>
+
+                        @if($category)
+                            <a href="{{ route('site.category.products', $category->transNow?->slug ?? $category->id) }}"
+                               class="btn product-outline-btn">
+                                {{ __('site.back_to_products') }}
+                            </a>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Additional Info (Product Tips) -->
+        @if($product->tipsActive && $product->tipsActive->count() > 0)
+            <div class="row g-4 mt-5">
+
+                @foreach($product->tipsActive as $tip)
+                    <div class="col-lg-4">
+                        <div class="product-info-box h-100">
+                            <h3>{{ $tip->transNow?->title }}</h3>
+                            {!! $tip->transNow?->description !!}
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        @endif
+
+        <!-- Related Products -->
+        @if($relatedProducts->count() > 0)
+            <div class="related-products-section mt-5">
+                <h2 class="related-products-title text-center mb-4">{{ __('site.related_products') }}</h2>
+                <div class="row g-4">
+
+                    @foreach($relatedProducts as $relProduct)
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="sub-card-bs">
+                                <div class="sub-img-bs">
+                                    <img src="{{ asset($relProduct->pathInView()) }}"
+                                         alt="{{ $relProduct->transNow?->title }}">
+                                </div>
+                                <div class="sub-body-bs">
+                                    <h3>{{ $relProduct->transNow?->title }}</h3>
+                                    <p>{{ Str::limit(strip_tags($relProduct->transNow?->description), 50) }}</p>
+                                    <a href="{{ route('site.product.show', $relProduct->transNow?->slug ?? $relProduct->id) }}"
+                                       class="sub-more-bs">
+                                        {{ __('site.see_more') }} →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+        @endif
+
     </div>
 </section>
 
-<!-- ================== PRODUCT BODY ================== -->
-<section class="shell grid" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-
-    @livewire('site.gallery', ['galleryGroup' => optional($product->galleryGroup)->id])
-    <!-- Details -->
-    <aside class="panel wow bounceInRight">
-        <div class="price">
-            @if ($product->price_after_sale !== $product->price)
-            <div class="main">{{ $product->price_after_sale }} EGP </div>
-            <div class="pricediv text-decoration-line-through">{{ $product->price }} EGP</div>
-            @else
-            <div class="main">{{ $product->price }} EGP </div>
-            @endif
-        </div>
-        @if ($product->has_pockets && $product->pockets->count())
-        <div class="chips">
-            @foreach ($product->pockets as $pocket)
-            <span class="chip">{{ $pocket->pocket_name }}</span>
-            @endforeach
-        </div>
-        @endif
-        <p class="lead">
-            {!! $product->transNow->description !!}
-        </p>
-
-        {{-- start payment Lines  --}}
-        <div class="btns">
-            @forelse (@$product->paymentLineActive as $lines)
-            <a class="btn primary animate__animated animate__headShake" href="{{ $lines->links }}" target="_blank" rel="noopener" 
-                style="background-color:{{ $lines->color }} !important; border-color: {{ $lines->color }} !important;">
-                {{ $lines->transNow?->title }}
-            </a>
-            @empty
-
-            @endforelse
-        </div>
-        {{-- end payment Lines  --}}
-
-
-        <div class="meta">
-            @forelse (@$product->tipsActive as $key => $tip)
-            <div class="card wow fadeInUp mb-0"  style="animation-delay: 0.{{ ($key + 1) }}s;">
-                <div class=""> <span class="text-primary fw-bold">{{  $tip->transNow?->title  }} : </span> {{ $tip->transNow?->description }}</div>
-            </div>
-            @empty
-
-            @endforelse
-        </div>
-
-    </aside>
-</section>
-
-
-<!-- ================== INFO CARDS ================== -->
-<section class="shell info">
-    @forelse (@$product->infoActive as $key => $info)
-    <article class="ibox wow fadeInUp"  style="animation-delay: 0.{{ ($key + 1) }}s;">
-        <h3 class="text-danger">{{ $info->transNow?->title }}</h3>
-        {!! $info->transNow?->description !!}
-    </article>
-    @empty
-
-    @endforelse
-</section>
-
 @endsection
-<style>
-    .title {
-        font-weight: 600;
-        font-size: 1.5rem !important;
-
-    }
-
-    .pricediv {
-        font-size: 1.5rem !important;
-    }
-
-    .hero {
-        margin-top: 60px !important;
-    }
-
-</style>

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductCategory extends Model
 {
-    use HasFactory, Translatable; 
+    use HasFactory, Translatable;
 
 
     protected $fillable = [
@@ -60,7 +60,15 @@ class ProductCategory extends Model
         return $this->belongsToMany(Product::class, 'product_category_products', 'product_category_id', 'product_id');
     }
 
-
+    public function parentCategories()
+    {
+        return $this->belongsToMany(
+            ParentCategory::class,
+            'parent_category_product_category',
+            'product_category_id',
+            'parent_category_id'
+        )->withTimestamps();
+    }
 
     //    public function products()
     //    {
@@ -119,15 +127,15 @@ class ProductCategory extends Model
     }
 
 
-public function promoCodes()
-{
-    return $this->belongsToMany(
-        PromoCode::class,
-        'promo_code_category',
-        'category_id',
-        'promo_code_id'
-    );
-}
+    public function promoCodes()
+    {
+        return $this->belongsToMany(
+            PromoCode::class,
+            'promo_code_category',
+            'category_id',
+            'promo_code_id'
+        );
+    }
     public function scopeFeatured($query)
     {
         return $query->where('status', 1);

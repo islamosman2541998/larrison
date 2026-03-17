@@ -71,6 +71,8 @@ return [
     'requirements' => 'المتطلبات',
     'employment_type' => 'نوع الوظيفة',
     'location' => 'الموقع',
+    'view_products' => 'عرض المنتجات',
+    'availability' => 'التوفر',
     
 
 

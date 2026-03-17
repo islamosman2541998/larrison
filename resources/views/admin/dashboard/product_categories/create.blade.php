@@ -268,7 +268,7 @@
                                                 <div class="row mb-3">
                                                     <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.sort') }}</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" type="number" name="sort" value="{{ old('sort') }}">
+                                                        <input class="form-control" type="number" name="sort" required value="{{ old('sort') }}">
                                                     </div>
                                                     @if ($errors->has($locale . '.sort'))
                                                     <span class="missiong-spam">{{ $errors->first($locale . '.sort') }}</span>

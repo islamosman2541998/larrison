@@ -7,7 +7,7 @@ return [
     'linkedin' => 'Linkedin',
     'google_map' => 'Open in Google Maps',
     'all_rights_reserved' => 'Tetra Pharma — All Rights Reserved',
-    'faq' => 'FAQ',
+    'faq' => 'Quick answers about orders, delivery, and quality.',
     'faq_title' => 'Frequently Asked Questions',
     'faq_p' => 'We’ve got answers.',
     'no_faq' => 'No faq questions',
@@ -39,4 +39,5 @@ return [
                             stand out online.
                             From strategy to execution, our team delivers professional results tailored to your brand.',
     'what_we_do' => 'What We do?',
+    'get_in_touch' => 'Get in touch',
 ];

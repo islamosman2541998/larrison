@@ -28,11 +28,11 @@ class ProductRequest extends FormRequest
     {
         return true;
     }
-     protected function prepareForValidation()
+    protected function prepareForValidation()
     {
         $this->merge([
             'has_pockets' => $this->has('has_pockets') ? 1 : 0,
-            
+
         ]);
     }
 
@@ -71,13 +71,14 @@ class ProductRequest extends FormRequest
 
         $arr += ['url' => 'nullable|url'];
 
-        $arr += ['price' => 'required|numeric|min:0'];
+        $arr += ['price' => 'nullable|numeric|min:0'];
         $arr += ['sale' => 'nullable|numeric|min:0'];
         $arr += ['price_after_sale' => 'nullable|numeric|min:0'];
         $arr += ['code' => 'nullable'];
         $arr += ['sort' => 'nullable|integer|min:0'];
         $arr += ['feature' => 'nullable'];
         $arr += ['status' => 'nullable'];
+        $arr += ['most_selling' => 'nullable'];
         $arr += ['show_in_slider' => 'nullable'];
         $arr += ['in_stock' => 'nullable'];
         $arr += ['show_text' => 'nullable'];
@@ -147,6 +148,8 @@ class ProductRequest extends FormRequest
         $data['show_in_slider'] = isset($data['show_in_slider']) ? 1 : 0;
         $data['feature'] = isset($data['feature']) ? 1 : 0;
         $data['in_stock'] = isset($data['in_stock']) ? 1 : 0;
+        $data['most_selling'] = isset($data['most_selling']) ? 1 : 0;
+
         $data['show_text'] = isset($data['show_text']) ? 1 : 0;
         $data['user_input'] = isset($data['user_input']) ? 1 : 0;
         $data['product_cart'] = isset($data['product_cart']) ? 1 : 0;

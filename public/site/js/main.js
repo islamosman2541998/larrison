@@ -1,338 +1,195 @@
-/*  ---------------------------------------------------
-    Template Name: Dreams
-    Description: Dreams wedding template
-    Author: Colorib
-    Author URI: https://colorlib.com/
-    Version: 1.0
-    Created: Colorib
----------------------------------------------------------  */
+// swiper header
+// Mobile Menu
+const burger = document.getElementById("navBurger");
+const links = document.getElementById("navLinks");
 
-'use strict';
+if (burger && links) {
+  burger.addEventListener("click", () => {
+    links.classList.toggle("open");
+  });
+}
 
-(function ($) {
+// Navbar scroll effect
+const navWrap = document.querySelector(".nav-wrap");
+window.addEventListener("scroll", () => {
+  if (!navWrap) return;
+  navWrap.classList.toggle("is-scrolled", window.scrollY > 10);
+});
 
+// Swiper Hero
+const heroSwiper = new Swiper("#heroSwiper", {
+  loop: true,
+  speed: 900,
+  effect: "slide",
+  autoplay: {
+    delay: 4500,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+// Categories Tabs (Works with Bootstrap HTML: .nav-link + data-bs-target + .tab-pane)
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll("#catsTabs .nav-link");
+  const panes = document.querySelectorAll("#catsTabsContent .tab-pane");
 
-    /*------------------
-        Preloader
-    --------------------*/
-    $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
+  if (!tabs.length || !panes.length) return;
 
-        /*------------------
-            Portfolio filter
-        --------------------*/
-        $('.portfolio__filter li').on('click', function () {
-            $('.portfolio__filter li').removeClass('active');
-            $(this).addClass('active');
-        });
-        if ($('.portfolio__gallery').length > 0) {
-            var containerEl = document.querySelector('.portfolio__gallery');
-            var mixer = mixitup(containerEl);
-        }
+  const activate = (targetSelector) => {
+    // Tabs active
+    tabs.forEach(t => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
     });
 
-     document.addEventListener('DOMContentLoaded', function () {
-        const isRTL = "{{ app()->getLocale() }}" === "ar";
+    const activeTab = document.querySelector(`#catsTabs .nav-link[data-bs-target="${targetSelector}"]`);
+    if (activeTab) {
+      activeTab.classList.add("active");
+      activeTab.setAttribute("aria-selected", "true");
+    }
 
-        const blogsSwiper = new Swiper(".blogs-swiper", {
-            loop: true,
-            rtl: isRTL, 
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            spaceBetween: 24,
-            pagination: {
-                el: ".blogs-swiper .swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".blogs-button-next",
-                prevEl: ".blogs-button-prev",
-            },
-           
-            breakpoints: {
-                0: {        
-                    slidesPerView: 1,
-                },
-                576: {      
-                    slidesPerView: 1,
-                },
-                768: {      
-                    slidesPerView: 2,
-                },
-                992: {      
-                    slidesPerView: 4,
-                },
-                1200: {     
-                    slidesPerView: 3,
+    // Panes show/hide (Bootstrap style)
+    panes.forEach(p => {
+      p.classList.remove("show", "active");
+    });
+
+    const activePane = document.querySelector(targetSelector);
+    if (activePane) {
+      activePane.classList.add("show", "active");
+    }
+  };
+
+  // Default tab (active one in HTML) or first tab
+  const defaultTarget =
+    document.querySelector('#catsTabs .nav-link.active')?.getAttribute("data-bs-target") ||
+    tabs[0].getAttribute("data-bs-target");
+
+  activate(defaultTarget);
+
+  // Click events
+  tabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = tab.getAttribute("data-bs-target");
+      if (target) activate(target);
+    });
+  });
+});
+// best seller
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.querySelector(".bs-swiper");
+  if (!el) return;
+
+  new Swiper(".bs-swiper", {
+    loop: true,
+    spaceBetween: 18,
+    speed: 700,
+
+    pagination: {
+      el: ".bs-pagination",
+      clickable: true,
+    },
+
+    navigation: {
+      nextEl: ".bs-next",
+      prevEl: ".bs-prev",
+    },
+
+    breakpoints: {
+      0:   { slidesPerView: 1.1 },
+      576: { slidesPerView: 2.1 },
+      992: { slidesPerView: 3.2 },
+      1200:{ slidesPerView: 4 },
+    },
+  });
+});
+// testimionials
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector("#testimonials");
+  if (!section) return;
+
+  const swiperEl = section.querySelector(".testi-swiper");
+  const nextBtn  = section.querySelector(".testi-next");
+  const prevBtn  = section.querySelector(".testi-prev");
+  const pagEl    = section.querySelector(".testi-pagination");
+
+  new Swiper(swiperEl, {
+    loop: true,
+    spaceBetween: 18,
+    speed: 700,
+    pagination: {
+      el: pagEl,
+      clickable: true,
+    },
+    navigation: {
+      nextEl: nextBtn,
+      prevEl: prevBtn,
+    },
+    breakpoints: {
+      0:    { slidesPerView: 1.1 },
+      576:  { slidesPerView: 2.1 },
+      992:  { slidesPerView: 3 },
+    }
+  });
+});
+// FAQ toggle
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".faq-question").forEach(question => {
+        question.addEventListener("click", () => {
+            const item = question.parentElement;
+
+            document.querySelectorAll(".faq-item").forEach(i => {
+                if (i !== item) {
+                    i.classList.remove("active");
                 }
-            }
+            });
+
+            item.classList.toggle("active");
         });
     });
-   
-    /*------------------
-        Background Set
-    --------------------*/
-    $('.set-bg').each(function () {
-        var bg = $(this).data('setbg');
-        $(this).css('background-image', 'url(' + bg + ')');
-    });
+});
+// category page
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".category-tab");
+  const cards = document.querySelectorAll(".category-item");
+  const searchInput = document.getElementById("categorySearch");
 
-    //Masonary
-    $('.work__gallery').masonry({
-        itemSelector: '.work__item',
-        columnWidth: '.grid-sizer',
-        gutter: 10
-    });
+  let activeTab = "all";
 
-    /*------------------
-		Navigation
-	--------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+  function filterCards() {
+    const searchValue = searchInput.value.trim().toLowerCase();
 
-    
+    cards.forEach(card => {
+      const category = card.dataset.category.toLowerCase();
+      const text = card.textContent.toLowerCase();
 
-    /*------------------
-		Hero Slider
-	--------------------*/
-       const isRtl = document.documentElement.getAttribute('dir') === 'rtl' ||
-                  document.querySelector('section.hero')?.getAttribute('dir') === 'rtl';
+      const matchesTab = activeTab === "all" || category === activeTab;
+      const matchesSearch = text.includes(searchValue);
 
-    // 2) init OwlCarousel with rtl option
-    $('.hero__slider').owlCarousel({
-        loop: true,
-        dots: true,
-        mouseDrag: false,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        items: 1,
-        margin: 0,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        rtl: isRtl,             // << important
-        nav: true,
-        navText: ['‹','›']
-    });
-
-    var dot = $('.hero__slider .owl-dot');
-    dot.each(function () {
-        var index = $(this).index() + 1;
-        if (index < 10) {
-            $(this).html('0').append(index);
-        } else {
-            $(this).html(index);
-        }
-    });
-
-  
-const testimonialsElement = document.querySelector(".testimonials-swiper");
-  if (testimonialsElement) {
-    const Cardswiper = new Swiper(".testimonials-swiper", {
-      loop: true,
-      autoplay: {
-        delay: 2000,
-        disableOnInteraction: false,
-      },
-      slidesPerView: 3,
-      spaceBetween: 30,
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 10,
-        },
-        1008: {
-          slidesPerView: 3,
-          spaceBetween: 10,
-        },
-        1400: {
-          slidesPerView: 3,
-          spaceBetween: 10,
-        },
-      },
-      navigation: {
-        nextEl: ".testimonials-button-next",
-        prevEl: ".testimonials-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+      if (matchesTab && matchesSearch) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
     });
   }
 
-    /*------------------
-        Latest Slider
-    --------------------*/
-    $(".latest__slider").owlCarousel({
-        loop: true,
-        margin: 0,
-        items: 3,
-        dots: true,
-        dotsEach: 2,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-            992: {
-                items: 3
-            },
-            768: {
-                items: 2
-            },
-            320: {
-                items: 1
-            }
-        }
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeTab = tab.dataset.tab;
+      filterCards();
     });
-
-    /*------------------
-        Logo Slider
-    --------------------*/
-    $(".logo__carousel").owlCarousel({
-        loop: true,
-        margin: 100,
-        items: 6,
-        dots: false,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-            992: {
-                items: 5
-            },
-            768: {
-                items: 4
-            },
-            480: {
-                items: 3
-            },
-            320: {
-                items: 2
-            }
-        }
-    });
-
-    /*------------------
-        Video Popup
-    --------------------*/
-    $('.video-popup').magnificPopup({
-        type: 'iframe'
-    });
-
-    /*------------------
-        Counter
-    --------------------*/
-    $('.counter_num').each(function () {
-        $(this).prop('Counter', 0).animate({
-            Counter: $(this).text()
-        }, {
-            duration: 4000,
-            easing: 'swing',
-            step: function (now) {
-                $(this).text(Math.ceil(now));
-            }
-        });
-    });
-
-})(jQuery);
-/* ===== Filters & search ===== */
-const deptSel = document.getElementById('dept');
-const typeSel = document.getElementById('type');
-const searchIn = document.getElementById('q');
-const clearBtn = document.getElementById('clear');
-
-function applyFilters(){
-  const d = deptSel.value.trim().toLowerCase();
-  const t = typeSel.value.trim().toLowerCase();
-  const q = searchIn.value.trim().toLowerCase();
-
-  const filtered = JOBS.filter(j=>{
-    const okDept = !d || j.dept.toLowerCase() === d;
-    const okType = !t || j.type.toLowerCase() === t;
-    const text = [j.title, j.dept, j.type, j.location, j.desc, ...(j.tags||[])].join(" ").toLowerCase();
-    const okQ = !q || text.includes(q);
-    return okDept && okType && okQ;
   });
 
-  renderJobs(filtered);
-}
-deptSel.addEventListener('change', applyFilters);
-typeSel.addEventListener('change', applyFilters);
-searchIn.addEventListener('input', applyFilters);
-clearBtn.addEventListener('click', ()=>{
-  deptSel.value=""; typeSel.value=""; searchIn.value=""; renderJobs(JOBS);
-});
+  searchInput.addEventListener("input", filterCards);
 
- const applyModal = document.getElementById('applyModal');
-    applyModal.addEventListener('show.bs.modal', function (event) {
-      const btn = event.relatedTarget;
-      const jobTitle = btn?.getAttribute('data-job') || '—';
-      document.getElementById('applyJobTitle').textContent = jobTitle;
-      document.getElementById('applyPosition').value = jobTitle;
-    });
-
-    /* ====== Job Details Modal: */
-   
-    const jobModal = document.getElementById('jobModal');
-    jobModal.addEventListener('show.bs.modal', function (event) {
-      const btn = event.relatedTarget;
-      const key = btn?.getAttribute('data-job') || '';
-      const data = JOB_DB[key] || null;
-
-      const titleEl = document.getElementById('jobTitle');
-      const metaEl = document.getElementById('jobMeta');
-      const introEl = document.getElementById('jobIntro');
-      const respEl = document.getElementById('jobResp');
-      const reqEl = document.getElementById('jobReq');
-
-      titleEl.textContent = key || 'Job Details';
-      if (data) {
-        metaEl.textContent = `${data.dept} • ${data.type} • ${data.location} • ${data.salary}`;
-        introEl.textContent = data.intro;
-        respEl.innerHTML = data.resp.map(i => `<li>${i}</li>`).join('');
-        reqEl.innerHTML = data.req.map(i => `<li>${i}</li>`).join('');
-      } else {  
-        metaEl.textContent = '';
-        introEl.textContent = 'Details will be updated soon.';
-        respEl.innerHTML = '';
-        reqEl.innerHTML = '';
-      }
-
-      const jobApplyBtn = document.getElementById('jobApplyBtn');
-      jobApplyBtn.setAttribute('data-bs-toggle', 'modal');
-      jobApplyBtn.setAttribute('data-bs-target', '#applyModal');
-      jobApplyBtn.setAttribute('data-job', key);
-    });
-
-    document.getElementById('applyForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const form = new FormData(this);
-      alert('Thanks! Your application has been submitted.');
-      const modal = bootstrap.Modal.getInstance(applyModal);
-      modal.hide();
-    });
-    
-document.querySelectorAll('.card[data-href]').forEach(card=>{
-  card.addEventListener('click', ()=> {
-    window.location.href = card.dataset.href;
-  });
-});
-
-     document.addEventListener('DOMContentLoaded', function() {
-    const elements = document.querySelectorAll('.set-bg');
-    elements.forEach(function(element) {
-        const bg = element.getAttribute('data-setbg');
-        if (bg) {
-            element.style.backgroundImage = 'url(' + bg + ')';
-        }
-    });
+  filterCards();
 });

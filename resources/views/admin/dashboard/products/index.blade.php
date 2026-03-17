@@ -79,7 +79,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-md-2 mb-2">
+                                    {{-- <div class="col-md-2 mb-2">
                                         <input type="number" step="any" min="0"
                                             value="{{ request()->input('from_price') }}" name="from_price"
                                             placeholder="{{ trans('products.from_price') }}" class="form-control">
@@ -88,7 +88,7 @@
                                         <input type="number" step="any" min="0"
                                             value="{{ request()->input('to_price') }}" name="to_price"
                                             placeholder="{{ trans('products.to_price') }}" class="form-control">
-                                    </div>
+                                    </div> --}}
 
 
                                     <!------------------->
@@ -168,7 +168,7 @@
                                                 name="check-all" id="check-all">
                                         </th>
                                         <th>#</th>
-                                        <th>@lang('products.code')</th>
+                                        {{-- <th>@lang('products.code')</th> --}}
                                         <th>@lang('admin.image')</th>
 
                                         <th>@lang('admin.title')</th>
@@ -176,7 +176,7 @@
                                         <th> @lang('products.categories') </th>
                                         {{-- <th>@lang('products.filters')</th>  --}}
 
-                                        <th>@lang('products.price')</th>
+                                        {{-- <th>@lang('products.price')</th> --}}
                                         {{-- <th>@lang('articles.sort')</th> --}}
                                         <th>@lang('admin.created_at')</th>
                                         <th>@lang('admin.updated_at')</th>
@@ -192,9 +192,9 @@
                                                     name="record[{{ $item->id }}]" value={{ $item->id }}>
                                             </td>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 {{ $item->code }}
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <img onclick="window.open(this.getAttribute('src') , '_blank')"
                                                     width="50" height="50"
@@ -232,10 +232,10 @@
                                                 @endforelse
                                             </td> --}}
 
-                                            <td>
+                                            {{-- <td>
                                                 {{ $item->price }}
 
-                                            </td>
+                                            </td> --}}
                                             {{-- <td>{{ $item->sort }}</td> --}}
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->updated_at }}</td>

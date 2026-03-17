@@ -21,5 +21,14 @@ return [
     'unactive'                    => 'Unactive',
     'search'                    => 'Search',
     'submit'                    => 'Submit',
+    'add'                       => 'Add',
+    'remove'                    => 'Remove',
+    'select'                    => 'Select',
+    'select_all'                => 'Select All',
+    'deselect_all'              => 'Deselect All',
+    'choose'                    => 'Choose',  
+    'choose_file'               => 'Choose File',
+    'view'                      => 'View',
+    'back'                      => 'Back',
 
 ];

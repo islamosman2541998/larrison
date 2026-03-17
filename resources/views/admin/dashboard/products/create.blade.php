@@ -166,7 +166,7 @@
 
 
                                 {{-- images Gellary  --}}
-                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample">
+                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage">
                                             <button class="accordion-button fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseOne">
@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -223,11 +223,11 @@
                                                 {{-- image --}}
                                                 <div class="col-12">
                                                     <div class="row mb-3">
-                                                        <div class="col-sm-4"><label for="example-number-input" class='col-form-label'>
+                                                        <div class="col-sm-12"><label for="example-number-input" class='col-form-label'>
                                                                 @lang('products.main_image'):</label></div>
-                                                        <div class="col-sm-8">
+                                                        <div class="col-sm-12">
                                                             <input class="form-control" type="file" id="example-number-input" name="image" value="{{ old('image') }}">
-                                                            <span class="text-danger"> Size: 358 x 360</span>
+                                                            {{-- <span class="text-danger"> Size: 358 x 360</span> --}}
 
                                                         </div>
                                                     </div>
@@ -257,7 +257,7 @@
 
                                                 {{-- code ------------------------------------------------------------------------------------- --}}
                                                 <div class="row mb-3">
-                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.code') }}</label>
+                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.availability') }}</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" type="text" name="code" value="{{ old('code') }}">
                                                     </div>
@@ -270,7 +270,7 @@
                                                 <div class="row mb-3">
                                                     <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.sort') }}</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" type="number" name="sort" value="{{ old('sort') }}">
+                                                        <input class="form-control" type="number" name="sort" required value="{{ old('sort') }}">
                                                     </div>
                                                     @if ($errors->has('sort'))
                                                     <span class="missiong-spam">{{ $errors->first('sort') }}</span>
@@ -280,9 +280,9 @@
 
                                                 {{-- resources/views/livewire/admin/calculate-after-sale.blade.php --}}
                                                 {{-- //here --}}
-                                                @livewireStyles
+                                                {{-- @livewireStyles
                                                 @livewire('admin.calculate-after-sale')
-                                                @livewireScripts
+                                                @livewireScripts --}}
 
 
                                                 {{-- feature ------------------------------------------------------------------------------------- --}}
@@ -307,10 +307,21 @@
                                                     <span class="missiong-spam">{{ $errors->first('status') }}</span>
                                                     @endif
                                                 </div>
+                                                {{-- most_selling ------------------------------------------------------------------------------------- --}}
+                                                <div class="col-12">
+                                                    <label class="col-sm-12 col-form-label" for="available">{{ trans('admin.best_seller') }}</label>
+                                                    <div class="col-sm-10">
+                                                        <input class="form-check form-switch" name="most_selling" type="checkbox" id="switch4" switch="success" {{ old('most_selling') == 'on' ? 'checked' : '' }}>
+                                                        <label class="form-label" for="switch4" data-on-label=" @lang('admin.yes') " data-off-label=" @lang('admin.no')"></label>
+                                                    </div>
+                                                    @if ($errors->has('most_selling'))
+                                                    <span class="missiong-spam">{{ $errors->first('most_selling') }}</span>
+                                                    @endif
+                                                </div>
 
                                                 <hr>
                                                 {{-- has_pockets --}}
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <label class="col-sm-12 col-form-label"
                                                         for="has_pockets">{{ trans('products.medicine_feature') }}</label>
                                                     <div class="col-sm-10">
@@ -335,7 +346,7 @@
                                                             <i class="fa fa-plus"></i> {{ trans('products.add_feature') }}
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
 
                                             </div>
@@ -347,7 +358,11 @@
 
                             <div class="row">
 
-                                <div class="col-12">
+                               {{-- Payment Lines, Product Tips, Product Info  --}}
+
+
+                                   {{-- Payment Lines --}}
+                                {{-- <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionSetting2">
                                         <div class="accordion-item border rounded">
                                             <h2 class="accordion-header" id="headingSetting2">
@@ -357,7 +372,6 @@
                                             </h2>
                                             <div id="collapseSetting2" class="accordion-collapse collapse" aria-labelledby="headingSetting2" data-bs-parent="#accordionSetting2">
                                                 <div class="accordion-body">
-                                                    {{-- has_payment_lines --}}
                                                     <div id="payment_lines_section">
                                                         <h4>{{ trans('products.payment_lines') }}</h4>
                                                         <div id="payment_lines_section_inputs"></div>
@@ -370,8 +384,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
+
+                                {{-- Product Tips --}}
                                 <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionSetting3">
                                         <div class="accordion-item border rounded">
@@ -398,8 +414,8 @@
                                     </div>
                                 </div>
 
-
-                                <div class="col-12">
+                                 {{-- Product Info --}}
+                                {{-- <div class="col-12">
                                     <div class="accordion mt-4 mb-4" id="accordionSetting4">
                                         <div class="accordion-item border rounded">
                                             <h2 class="accordion-header" id="headingSetting4">
@@ -410,7 +426,6 @@
                                             <div id="collapseSetting4" class="accordion-collapse collapse " aria-labelledby="headingSetting4" data-bs-parent="#accordionSetting4">
                                                 <div class="accordion-body">
 
-                                                    {{-- has_product_tips --}}
                                                     <div id="product_info_section">
                                                         <h4>{{ trans('products.product_info') }}</h4>
                                                         <div id="product_info_section_inputs"></div>
@@ -424,7 +439,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             {{-- Butoooons ------------------------------------------------------------------------- --}}

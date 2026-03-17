@@ -246,7 +246,7 @@ return [
     'our_products' => 'مكملات غذائية موثوقة لحياة أكثر صحة.',
     'explore_product' => 'استكشف منتجاتنا',
     'no_products' => 'لا توجد منتجات',
-    'request_service' => 'طلب خدمة',
+    'request_service' => 'طلب منتج',
     'Profile' => 'الملف الشخصي',
     
     

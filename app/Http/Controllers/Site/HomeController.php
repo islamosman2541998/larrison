@@ -38,6 +38,7 @@ class HomeController extends Controller
         $faq_questions = Faq::with('translations')->where('status', 1)->get();
 
         $products = Product::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(3)->get();
+        $bestProducts = Product::with('transNow')->where('most_selling', 1)->feature()->active()->orderBy('sort', 'ASC')->get();
         $categoryProducts = ProductCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
         $servicesCategories = ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
         $statistics = Statistic::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
@@ -66,7 +67,8 @@ class HomeController extends Controller
             'servicesCategories',
             'portfolios',
             'statistics',
-            'services_section'
+            'services_section',
+            'bestProducts'
         ));
     }
 }

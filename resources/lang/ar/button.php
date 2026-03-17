@@ -21,5 +21,14 @@ return [
     'unactive'                    => 'غير متاح',
     'search'                    => 'بحث',
     'submit'                    => 'ارسال',
+    'add'                       => 'اضافة',
+    'remove'                    => 'ازالة',
+    'select'                    => 'اختر',
+    'select_all'                => 'اختر الكل',
+    'deselect_all'              => 'الغاء اختيار الكل',
+    'choose'                    => 'اختر',  
+    'choose_file'               => 'اختر ملف',
+    'view'                      => 'عرض',
+    'back'                      => 'رجوع',
 
 ];

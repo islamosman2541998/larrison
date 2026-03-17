@@ -10,22 +10,26 @@
     <!-- Slider -->
     <x-slider />
 
-     <!-- services -->
-    @include('site.pages.services')
+    <!-- About us -->
+    @include('site.pages.about')
+
+    <!-- Categories -->
+
+    <livewire:site.categories-section />
+
+    <!-- Best Sellers -->
+    @include('site.pages.bestproducts')
 
 
-     <!-- Portfolios -->
-    @include('site.pages.Portfolios')
-
- <!-- statistics -->
-    @include('site.pages.statistics')
-
-    <!-- Blogs -->
-    @include('site.pages.blogs')
 
 
-    <!-- services_section -->
-    @include('site.pages.services_section')
+    <!-- Reviews -->
+    <x-reviews />
 
+    <!-- Faq -->
+    @include('site.pages.faq_questions')
+
+    <!-- Partners -->
+    @include('site.pages.partners')
 
 @endsection

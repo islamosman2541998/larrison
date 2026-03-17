@@ -177,7 +177,7 @@ return [
 
     'products' => 'products',
 
-    'product_category' => 'Product category',
+    'product_category' => 'Sub Categories for products',
     'occasions' => 'occasions ',
 
     'current_gallerys' => 'current gallery',
@@ -584,6 +584,7 @@ return [
 'your_message_has_been_sent_successfully' => 'Your message has been sent successfully',
 'all' => 'All',
 'no_portfolios' => 'No Portfolios',
+'best_seller' => 'Best Seller',
 
 
 ];

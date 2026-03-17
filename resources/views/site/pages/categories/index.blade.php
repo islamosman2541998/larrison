@@ -1,42 +1,99 @@
 @extends('site.app')
 
-@section('title', @$metaSetting->where('key', 'categories_meta_title_' . $current_lang)->first()->value)
-@section('meta_key', @$metaSetting->where('key', 'categories_meta_key_' . $current_lang)->first()->value)
-@section('meta_description', @$metaSetting->where('key', 'categories_meta_description_' . $current_lang)->first()->value)
-
+@section('title', __('site.our_categories'))
 
 @section('content')
-     <!-- OUR PRODUCTS -->
-<section class="products-section hero" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+
+<section class="category-page py-5" id="category-page">
     <div class="container">
-        <div class="text-center mb-4">
-            <h2 class="section-title">@lang('Our Categories')</h2>
+
+        <!-- Heading -->
+        <div class="category-page-head text-center mb-5 pt-5">
+            <h2>{{ __('site.our_categories') }}</h2>
+            <p class="category-page-subtitle">{{ __('site.browse_categories') }}</p>
+
+            <div class="category-search mx-auto mt-4">
+                <input type="text" id="categorySearch" class="form-control" placeholder="{{ __('site.search_category') }}...">
+            </div>
         </div>
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
-            @forelse ($categories as $category)
-                <a href="{{ route('site.categories.show', $category->transNow->slug) }}" class="text-decoration-none" aria-label="{{ $category->transNow->title }}">
-                    <div class="card" style="background-color: transparent; box-shadow: none; border: none;">
-                        <div class="mb-1">
-                            <img src="{{ asset($category->path() . $category->image) }}" class="rounded" alt="{{ $category->transNow->title }}">
-                        </div>
-                        <div class="product-footer">
-                            <div class="product-title">{{ $category->transNow->title }}</div>
+
+        <!-- Tabs (Parent Categories) -->
+        <div class="category-tabs-wrap text-center mb-5">
+            <div class="category-tabs d-inline-flex flex-wrap justify-content-center gap-2" id="categoryTabs">
+                <button class="category-tab active" data-tab="all">{{ __('site.all_categories') }}</button>
+                @foreach($parentCategories as $parent)
+                    <button class="category-tab" data-tab="parent-{{ $parent->id }}">
+                        {{ $parent->transNow?->title }}
+                    </button>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Cards (Product Categories) -->
+        <div class="row g-4" id="categoryCards">
+
+            @foreach($parentCategories as $parent)
+                @foreach($parent->productCategories as $subCat)
+                    <div class="col-12 col-sm-6 col-lg-4 category-item" data-category="parent-{{ $parent->id }}">
+                        <div class="category-card-clean">
+                            <div class="category-card-clean__img">
+                                <img src="{{ asset($subCat->pathInView()) }}" alt="{{ $subCat->transNow?->title }}">
+                            </div>
+                            <div class="category-card-clean__content">
+                                <h3>{{ $subCat->transNow?->title }}</h3>
+                                <p>{{ Str::limit(strip_tags($subCat->transNow?->description), 80) }}</p>
+                                <a href="{{ route('site.category.products', $subCat->transNow?->slug ?? $subCat->id) }}" class="category-card-link">
+                                    {{ __('site.view_products') }} →
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </a>
-            @empty
-                <div class="col text-center">
-                    <p>{{ __('messages.no_category') }}</p>
-                </div>
-            @endforelse
+                @endforeach
+            @endforeach
+
         </div>
+
     </div>
 </section>
-   
 
 @endsection
-<style>
-    .hero{
-        margin-top: 60px !important;
+
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.category-tab');
+    const cards = document.querySelectorAll('.category-item');
+    const searchInput = document.getElementById('categorySearch');
+
+    // Tab filtering
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+            filterCards();
+        });
+    });
+
+    // Search filtering
+    searchInput.addEventListener('input', function () {
+        filterCards();
+    });
+
+    function filterCards() {
+        const activeTab = document.querySelector('.category-tab.active').getAttribute('data-tab');
+        const searchVal = searchInput.value.toLowerCase().trim();
+
+        cards.forEach(function (card) {
+            const cardCategory = card.getAttribute('data-category');
+            const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+            const cardDesc = card.querySelector('p').textContent.toLowerCase();
+
+            const matchesTab = (activeTab === 'all') || (cardCategory === activeTab);
+            const matchesSearch = !searchVal || cardTitle.includes(searchVal) || cardDesc.includes(searchVal);
+
+            card.style.display = (matchesTab && matchesSearch) ? '' : 'none';
+        });
     }
-</style>
+});
+</script>
+@endsection

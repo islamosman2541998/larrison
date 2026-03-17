@@ -51,7 +51,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Admin\Authorizations\RolesController;
 use App\Http\Controllers\Admin\ServiceCategoryEventsController;
 use App\Http\Controllers\Admin\Authorizations\PermissionsController;
-
+use App\Http\Controllers\Admin\ParentCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -167,7 +167,7 @@ Route::group([
                 Route::get('jobs/{job}/toggle-status', [App\Http\Controllers\Admin\JobController::class, 'toggleStatus'])->name('jobs.toggle-status');
                 Route::get('jobs/{job}/toggle-feature', [App\Http\Controllers\Admin\JobController::class, 'toggleFeature'])->name('jobs.toggle-feature');
 
- /************************** start CareerCategory ************************************/
+                /************************** start CareerCategory ************************************/
                 Route::resource('career_category', CareerCategoryController::class);
                 Route::get('career_category-update-featured/{id}', [CareerCategoryController::class, 'update_featured'])->name('career_category.update-featured');
                 Route::get('career_category-update-status/{id}', [CareerCategoryController::class, 'update_status'])->name('career_category.update-status');
@@ -231,13 +231,13 @@ Route::group([
 
                 // ----- Cv -----------------------------------------------
                 Route::get('/cvs', [AdminCvController::class, 'index'])->name('cvs.index');
-               
+
                 Route::delete('/cvs/{cv}', [AdminCvController::class, 'destroy'])->name('cvs.destroy');
 
                 // ----- End ServiceRequest -------------------------------------------
                 // ----- Cv -----------------------------------------------
                 Route::get('/service_request', [ServiceRequestController::class, 'index'])->name('service_request.index');
-               
+
                 Route::delete('/service_request/{service_request}', [ServiceRequestController::class, 'destroy'])->name('service_request.destroy');
 
                 // ----- End ServiceRequest -------------------------------------------
@@ -341,7 +341,15 @@ Route::group([
                 Route::get('product-category-update-status/{id}', [ProductCategoryController::class, 'updateStatus'])->name('product_category.update-status');
                 Route::post('product_category/actions', [ProductCategoryController::class, 'actions'])->name('product_category.actions');
 
-                /************************** start product_category ************************************/
+                /************************** end product_category ************************************/
+
+
+                /************************** start parent_category ************************************/
+                Route::resource('parent_category', ParentCategoryController::class);
+                Route::get('parent-category-update-featured/{id}', [ParentCategoryController::class, 'updateFeature'])->name('parent_category.update-featured');
+                Route::get('parent-category-update-status/{id}', [ParentCategoryController::class, 'updateStatus'])->name('parent_category.update-status');
+                Route::post('parent_category/actions', [ParentCategoryController::class, 'actions'])->name('parent_category.actions');
+                /************************** end parent_category ************************************/
 
                 /************************** start products gallery ************************************/
                 Route::get('destroy_product_category_gallery_image/{id}', [ProductCategoryController::class, 'destroyImage'])->name('product_category.destroy_product_gallery_image');

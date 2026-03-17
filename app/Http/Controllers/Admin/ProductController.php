@@ -249,34 +249,34 @@ class ProductController extends Controller
             }
         }
 
-        if ($request->has('has_pockets')) {
-            $product->has_pockets = true;
-            $product->save();
+        // if ($request->has('has_pockets')) {
+        //     $product->has_pockets = true;
+        //     $product->save();
 
-            if (isset($request->pockets['en']) && isset($request->pockets['ar'])) {
-                foreach ($request->pockets['en'] as $index => $pocketNameEn) {
-                    if (!isset($request->pockets['ar'][$index])) {
-                        continue;
-                    }
-                    $pocketData = [
-                        'product_id' => $product->id,
-                        'price' => null,
-                    ];
+        //     if (isset($request->pockets['en']) && isset($request->pockets['ar'])) {
+        //         foreach ($request->pockets['en'] as $index => $pocketNameEn) {
+        //             if (!isset($request->pockets['ar'][$index])) {
+        //                 continue;
+        //             }
+        //             $pocketData = [
+        //                 'product_id' => $product->id,
+        //                 'price' => null,
+        //             ];
 
-                    $pocket = ProductPocket::create($pocketData);
+        //             $pocket = ProductPocket::create($pocketData);
 
-                    $pocket->translations()->create([
-                        'locale' => 'en',
-                        'pocket_name' => $pocketNameEn,
-                    ]);
+        //             $pocket->translations()->create([
+        //                 'locale' => 'en',
+        //                 'pocket_name' => $pocketNameEn,
+        //             ]);
 
-                    $pocket->translations()->create([
-                        'locale' => 'ar',
-                        'pocket_name' => $request->pockets['ar'][$index],
-                    ]);
-                }
-            }
-        }
+        //             $pocket->translations()->create([
+        //                 'locale' => 'ar',
+        //                 'pocket_name' => $request->pockets['ar'][$index],
+        //             ]);
+        //         }
+        //     }
+        // }
 
         if ($request->gallery_image) {
             $group = GalleryGroup::create([
@@ -365,7 +365,7 @@ class ProductController extends Controller
         if ($request->has('lines')) {
             $submittedLineIds = collect($data['lines'])
                 ->pluck('id')
-                ->filter() 
+                ->filter()
                 ->toArray();
 
             ProductPaymentLine::where('product_id', $product->id)
@@ -410,7 +410,7 @@ class ProductController extends Controller
         if ($request->has('tips')) {
             $submittedTipIds = collect($data['tips'])
                 ->pluck('id')
-                ->filter() 
+                ->filter()
                 ->toArray();
 
             ProductTips::where('product_id', $product->id)
@@ -421,7 +421,7 @@ class ProductController extends Controller
                 $tipAttributes = [
                     'product_id' => $product->id,
                     'sort' => @$tipData['sort'],
-                    'status' => @$tipData['status']?? 1,
+                    'status' => @$tipData['status'] ?? 1,
                 ];
                 $translations = [
                     'en' => [
@@ -448,11 +448,11 @@ class ProductController extends Controller
         }
         // Product Tips ---------------------------------------------------
 
-         // Product Tips ---------------------------------------------------
+        // Product Tips ---------------------------------------------------
         if ($request->has('info')) {
             $submittedTipIds = collect($data['info'])
                 ->pluck('id')
-                ->filter() 
+                ->filter()
                 ->toArray();
 
             ProductInfo::where('product_id', $product->id)
@@ -463,7 +463,7 @@ class ProductController extends Controller
                 $tipAttributes = [
                     'product_id' => $product->id,
                     'sort' => @$tipData['sort'],
-                    'status' => @$tipData['status']?? 1,
+                    'status' => @$tipData['status'] ?? 1,
                 ];
                 $translations = [
                     'en' => [
@@ -490,56 +490,56 @@ class ProductController extends Controller
         }
         // Product Tips ---------------------------------------------------
 
-        if ($request->has('has_pockets')) {
-            $pocketIdsToKeep = [];
-            
-            
-            $pockets = $request->input('pockets', []);
-            
-            foreach ($pockets['en'] as $index => $item) {
-                $pocketData = [
-                    'product_id' => $product->id,
-                    'price'      =>  0,
-                ];
-
-                $pocketId = $pockets['id'][$index] ?? null;
-                if ($pocketId && $pocketId !== 'new') {
-                    $pocket = ProductPocket::find($pocketId);
-                    if ($pocket) {
-                        $pocket->update($pocketData);
-                        $pocketIdsToKeep[] = $pocket->id;
-                    } else {
-                        // fallback: create if id provided but not found
-                        $pocket = ProductPocket::create($pocketData);
-                        $pocketIdsToKeep[] = $pocket->id;
-                    }
-                } else {
-                    $pocket = ProductPocket::create($pocketData);
-                    $pocketIdsToKeep[] = $pocket->id;
-                }
+        // if ($request->has('has_pockets')) {
+        //     $pocketIdsToKeep = [];
 
 
-                $enName = $pockets['en'][$index] ?? null;
-                $arName = $pockets['ar'][$index] ?? null;
+        //     $pockets = $request->input('pockets', []);
 
-                if ($enName !== null) {
-                    $pocket->translations()->updateOrCreate(
-                        ['locale' => 'en'],
-                        ['pocket_name' => $enName]
-                    );
-                }
-                if ($arName !== null) {
-                    $pocket->translations()->updateOrCreate(
-                        ['locale' => 'ar'],
-                        ['pocket_name' => $arName]
-                    );
-                }
-            }
+        //     foreach ($pockets['en'] as $index => $item) {
+        //         $pocketData = [
+        //             'product_id' => $product->id,
+        //             'price'      =>  0,
+        //         ];
 
-            ProductPocket::where('product_id', $product->id)
-                ->whereNotIn('id', $pocketIdsToKeep)
-                ->delete();
-        } 
+        //         $pocketId = $pockets['id'][$index] ?? null;
+        //         if ($pocketId && $pocketId !== 'new') {
+        //             $pocket = ProductPocket::find($pocketId);
+        //             if ($pocket) {
+        //                 $pocket->update($pocketData);
+        //                 $pocketIdsToKeep[] = $pocket->id;
+        //             } else {
+        //                 // fallback: create if id provided but not found
+        //                 $pocket = ProductPocket::create($pocketData);
+        //                 $pocketIdsToKeep[] = $pocket->id;
+        //             }
+        //         } else {
+        //             $pocket = ProductPocket::create($pocketData);
+        //             $pocketIdsToKeep[] = $pocket->id;
+        //         }
+
+
+        //         $enName = $pockets['en'][$index] ?? null;
+        //         $arName = $pockets['ar'][$index] ?? null;
+
+        //         if ($enName !== null) {
+        //             $pocket->translations()->updateOrCreate(
+        //                 ['locale' => 'en'],
+        //                 ['pocket_name' => $enName]
+        //             );
+        //         }
+        //         if ($arName !== null) {
+        //             $pocket->translations()->updateOrCreate(
+        //                 ['locale' => 'ar'],
+        //                 ['pocket_name' => $arName]
+        //             );
+        //         }
+        //     }
+
+        //     ProductPocket::where('product_id', $product->id)
+        //         ->whereNotIn('id', $pocketIdsToKeep)
+        //         ->delete();
+        // } 
 
         if ($product->galleryGroup) {
             $groupGallery = $product->galleryGroup;
@@ -551,8 +551,7 @@ class ProductController extends Controller
                 'created_by' => auth()->id(),
             ])->refresh();
         }
-        $groupGallery->update($request->gallery);
-
+        $groupGallery->update($request->input('gallery', []));
         $group = $groupGallery;
 
         if ($request->gallery_image) {
@@ -640,6 +639,19 @@ class ProductController extends Controller
             $product->status = 1;
         } else {
             $product->status = 0;
+        }
+        $product->updated_by = auth()->id();
+        $product->save();
+        session()->flash('success', trans('message.admin.status_changed_sucessfully'));
+        return redirect()->back();
+    }
+    public function updatemostsell($id)
+    {
+        $product = Product::find($id);
+        if ($product->most_selling < 1) {
+            $product->most_selling = 1;
+        } else {
+            $product->most_selling = 0;
         }
         $product->updated_by = auth()->id();
         $product->save();
@@ -876,24 +888,23 @@ class ProductController extends Controller
         return view('admin/dashboard/reports/products/index')->with(['items' => $items, 'occasions' => $occasions, 'cats' => $cats, 'totalSum' => $totalSum, 'totalOrders' => $totalOrders]);
     }
 
-    // في App\Http\Controllers\Admin\ProductController
-    public function updateFeatured(Request $request)
-    {
-        Product::query()->update([
-            'most_selling' => 0,
-            'best_offer' => 0
-        ]);
+    // public function updateFeatured(Request $request)
+    // {
+    //     Product::query()->update([
+    //         'most_selling' => 0,
+    //         'best_offer' => 0
+    //     ]);
 
-        if ($request->has('most_selling')) {
-            Product::whereIn('id', $request->most_selling)->update(['most_selling' => 1]);
-        }
+    //     if ($request->has('most_selling')) {
+    //         Product::whereIn('id', $request->most_selling)->update(['most_selling' => 1]);
+    //     }
 
-        if ($request->has('best_offer')) {
-            Product::whereIn('id', $request->best_offer)->update(['best_offer' => 1]);
-        }
+    //     if ($request->has('best_offer')) {
+    //         Product::whereIn('id', $request->best_offer)->update(['best_offer' => 1]);
+    //     }
 
-        return redirect()->back()->with('success', 'تم التحديث بنجاح');
-    }
+    //     return redirect()->back()->with('success', 'تم التحديث بنجاح');
+    // }
     public function featuredProducts()
     {
         $products = Product::with(['transNow' => function ($query) {

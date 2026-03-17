@@ -70,6 +70,8 @@ return [
     'requirements' => 'Requirements',
     'employment_type' => 'Employment Type',
     'location' => 'Location',
+    'view_products' => 'View Products',
+    'availability' => 'Availability',
  
     
 
