@@ -273,7 +273,7 @@
 
 
                 {{-- shop ----------------------------------------------------------- --}}
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                         <span> @lang('admin.shop')</span>
@@ -307,7 +307,7 @@
                         <li><a href="{{ route('admin.rates.index') }}"> @lang('admin.rates')</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 {{-- End shop ----------------------------------------------------------- --}}
 
 
@@ -394,16 +394,16 @@
 
                 {{--           portfolio             --}}
 
-                <li><a href="{{ route('admin.portfolio.index') }}">
+                {{-- <li><a href="{{ route('admin.portfolio.index') }}">
                         <i class="fas fa-images"></i>
-                        @lang('admin.portfolio')</a></li>
+                        @lang('admin.portfolio')</a></li> --}}
 
 
                 {{--           portfolio tags            --}}
 
-                <li><a href="{{ route('admin.portfolio-tags.index') }}">
+                {{-- <li><a href="{{ route('admin.portfolio-tags.index') }}">
                         <i class="fas fa-tags"></i>
-                        @lang('admin.portfolio-tags')</a></li>
+                        @lang('admin.portfolio-tags')</a></li> --}}
 
 
 
@@ -430,7 +430,7 @@
 
 
                 {{-- services --------------------------------------------------------------- --}}
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fa fa-smile"></i>
                         <span> @lang('services.services')</span>
@@ -442,13 +442,13 @@
                             <a href="{{ route('admin.services.create') }}"> @lang('services.create_services')</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
 
 
                 {{-- End services ----------------------------------------------------------- --}}
                 {{-- services categories --------------------------------------------------------------- --}}
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fa fa-smile-beam"></i>
                         <span> @lang('services.services_categories')</span>
@@ -460,7 +460,7 @@
                             <a href="{{ route('admin.service.create') }}"> @lang('services.create_services_categories')</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
 
 
@@ -468,32 +468,32 @@
 
                 {{--         News             --}}
 
-                <li><a href="{{ route('admin.news.index') }}">
+                {{-- <li><a href="{{ route('admin.news.index') }}">
                         <i class="fas fa-newspaper"></i>
-                        @lang('admin.newss')</a></li>
+                        @lang('admin.newss')</a></li> --}}
 
 
                 {{--         jobs             --}}
-                <li><a href="{{ route('admin.jobs.index') }}">
+                {{-- <li><a href="{{ route('admin.jobs.index') }}">
                         <i class="fas fa-briefcase"></i>
-                        @lang('admin.jobs')</a></li>
+                        @lang('admin.jobs')</a></li> --}}
                 {{--         jobs             --}}
 
                 {{--         career_category             --}}
-                <li><a href="{{ route('admin.career_category.index') }}">
+                {{-- <li><a href="{{ route('admin.career_category.index') }}">
                         <i class="fas fa-graduation-cap"></i>
-                        @lang('admin.career_category')</a></li>
+                        @lang('admin.career_category')</a></li> --}}
                 {{--         career_category             --}}
 
                 {{--         service_request             --}}
-                <li><a href="{{ route('admin.service_request.index') }}">
+                {{-- <li><a href="{{ route('admin.service_request.index') }}">
                         <i class="fas fa-comment"></i>
-                        @lang('admin.serviceRequest')</a></li>
+                        @lang('admin.serviceRequest')</a></li> --}}
                 {{--         service_request             --}}
-
+{{-- 
                 <li><a href="{{ route('admin.cvs.index') }}">
                         <i class="fas fa-id-card"></i>
-                        @lang('admin.cvs')</a></li>
+                        @lang('admin.cvs')</a></li> --}}
 
                 {{--         partners             --}}
 
@@ -503,9 +503,9 @@
 
                 {{--           statistic             --}}
 
-                <li><a href="{{ route('admin.statistic.index') }}">
+                {{-- <li><a href="{{ route('admin.statistic.index') }}">
                         <i class="fas fa-images"></i>
-                        @lang('admin.statistic')</a></li>
+                        @lang('admin.statistic')</a></li> --}}
 
 
                 {{--  about us --}}

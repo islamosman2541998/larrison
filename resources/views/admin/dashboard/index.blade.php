@@ -79,7 +79,7 @@
 
 
             {{-- ---------------------------------------------products---------------------------------------------------------------------- --}}
-            <h4 class="page-title navbar-custom-color">@lang('admin.products')</h4>
+            {{-- <h4 class="page-title navbar-custom-color">@lang('admin.products')</h4> --}}
             {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="col-md-6 col-xl-4">
+            {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('admin.products.index') }}">
@@ -114,7 +114,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -245,7 +245,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-4">
+            {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('admin.jobs.index') }}">
@@ -260,7 +260,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -277,7 +277,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-4">
+            {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('admin.news.index') }}">
@@ -292,7 +292,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{--            <div class="col-md-6 col-xl-4"> --}}
             {{--                <div class="card"> --}}
