@@ -8,7 +8,7 @@
         <section class="switcher {{ $showForm ? 'show-form' : '' }}" id="switcher">
             <!-- VISUAL -->
             <div class="visual">
-                <div class="logo-wrap Hulul">HULUL</div>
+                <div class="logo-wrap Hulul">Larrison</div>
             </div>
 
             <!-- CONTENT -->
@@ -36,7 +36,7 @@
                 <!-- Form (hidden until show-form) -->
                 <div class="form-card" id="formPane" style="{{ !$showForm ? 'display:none' : '' }}">
                     <div class="form-header">
-                        <h2 class="form-title textwhite">Request Service</h2>
+                        <h2 class="form-title textwhite">Request Product</h2>
                     </div>
 
                     @if (session()->has('success'))
@@ -93,48 +93,24 @@
                             </div>
 
                             <div>
-                                <label>Company</label>
+                                <label>Product Name</label>
                                 <input 
                                     class="input @error('company') error @enderror" 
                                     type="text"
                                     wire:model="company"
-                                    placeholder="Company Name"
+                                    placeholder="Product Name"
                                 >
                                 @error('company')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div>
-                                <label>Service *</label>
-                                <select 
-                                    class="input @error('service_category_id') error @enderror"
-                                    wire:model="service_category_id"
-                                >
-                                    <option value="" selected>Select a service</option>
-                                    @foreach($serviceCategories as $category)
-                                        <option value="{{ $category->id }}">
-                                            {{ $category->transNow->title ?? $category->service_unique_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('service_category_id')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
+                           
 
-                            <div>
-                                <label>Timeline</label>
-                                <select class="input" wire:model="timeline">
-                                    <option value="Flexible">Flexible</option>
-                                    <option value="ASAP">ASAP</option>
-                                    <option value="2–4 weeks">2–4 weeks</option>
-                                    <option value="1–3 months">1–3 months</option>
-                                </select>
-                            </div>
+                          
 
                             <div class="full">
-                                <label>Project brief</label>
+                                <label>product brief</label>
                                 <textarea 
                                     class="input @error('message') error @enderror"
                                     wire:model="message"

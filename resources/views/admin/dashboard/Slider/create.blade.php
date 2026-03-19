@@ -145,21 +145,21 @@
                                                             </div>
                                                         </div>
                                                         {{-- video ------------------------------------------------------------------------------------- --}}
-                                                        <div class="col-12">
+                                                        {{-- <div class="col-12">
                                                             <div class="row mb-3">
                                                                 <label for="example-number-input" col-form-label>
                                                                     @lang('admin.video'):</label>
                                                                 <div class="col-sm-12">
-                                                                    {{-- <span class="text-danger">@lang('admin.video_site', ['width' => '1600px', 'height' => '750px'])</span> --}}
+                                                                    <span class="text-danger">@lang('admin.video_site', ['width' => '1600px', 'height' => '750px'])</span>
                                                                     <input class="form-control" type="file"
                                                                         id="example-number-input" name="video"
                                                                         value="{{ old('video') }}">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                         {{-- URL ------------------------------------------------------------------------------------- --}}
-                                                        <div class="col-12">
+                                                        {{-- <div class="col-12">
                                                             <div class="row mb-3">
                                                                 <label for="example-number-input" col-form-label>
                                                                     @lang('slider.url'):</label>
@@ -169,7 +169,7 @@
                                                                         value="{{ old('url') }}">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                         {{-- sort ------------------------------------------------------------------------------------- --}}
                                                         <div class="col-12">

@@ -8,65 +8,48 @@
 @section('content')
 
 
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2> @lang('blogs.blogs')</h2>
-                        <div class="breadcrumb__links">
-                            <a href="{{ route('site.home') }}">@lang('site.home') /</a>
-                            <span>@lang('blogs.blogs')</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
 
-    <!-- Blog Section Begin -->
-    <section class="blog spad">
+
+    <section class="category-page py-5 " id="category-page">
         <div class="container">
-            <div class="row">
+
+            <!-- Heading -->
+            <div class="category-page-head text-center mb-5 pt-5">
+                <h2>@lang('blogs.blogs')</h2>
+                {{-- <p class="category-page-subtitle">Browse all Blogs and find what you need quickly.</p> --}}
+            </div>
+
+
+            <!-- Cards -->
+            <div class="row g-4" id="categoryCards">
+
 
                 @forelse ($blogs as $key =>$blog)
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="blog__item latest__item">
-                            <h4>{{ $blog->title }} </h4>
-                            <ul>
-                                <li>{{ $blog->created_at->format('M d, Y') }}</li>
-                            </ul>
-                            <p>
-                                {!! Str::limit($blog->description, 200) !!}
-                            </p>
-                            <a href="{{ route('site.site.blogs.show', $blog->id) }}">@lang('admin.read_more') <span class="arrow_right"></span></a>
+                    <div class="col-12 col-sm-6 col-lg-4 category-item" data-category="pharmaceuticals">
+                        <div class="category-card-clean">
+                            <div class="category-card-clean__img">
+                                <img src="{{ asset($blog->pathInView()) }}" alt="Pharmaceuticals">
+                            </div>
+                            <div class="category-card-clean__content">
+                                <h3>{{ $blog->title }}</h3>
+                                {{-- <p>{!! Str::limit($blog->description, 200) !!}</p> --}}
+                                <a href="{{ route('site.site.blogs.show', $blog->id) }}"
+                                    class="category-card-link blogbtn">@lang('admin.read_more') →</a>
+                            </div>
                         </div>
                     </div>
                 @empty
                     <h3>@lang('blogs.no_blogs')</h3>
                 @endforelse
 
+
+
+
+
             </div>
-            {{-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="pagination__option blog__pagi">
-                        <a href="#" class="arrow__pagination left__arrow"><span class="arrow_left"></span> Prev</a>
-                        <a href="#" class="number__pagination">1</a>
-                        <a href="#" class="number__pagination">2</a>
-                        <a href="#" class="arrow__pagination right__arrow">Next <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-            </div> --}}
+
         </div>
     </section>
-    <!-- Blog Section End -->
  
 
-
-
 @endsection
-
-
-

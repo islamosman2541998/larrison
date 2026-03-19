@@ -54,6 +54,7 @@ return [
     'image2' => 'Image 2',
     'image3' => 'Image 3',
     'Vision_Mission' => 'Vision and Mission',
-    'at_hulul' => 'At Hulul, we believe in creating digital solutions that inspire growth and innovation. ',
+    'at_hulul' => 'We are committed to delivering trusted pharmaceuticals, cosmetics, and medical supplies
+          with quality, care, and long-term value. ',
    
 ];

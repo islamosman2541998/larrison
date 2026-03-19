@@ -30,7 +30,7 @@
 
             <div class="card-body">
               <h5 class="bs-name">{{ $product->transNow?->title }}</h5>
-              <p class="bs-desc">  {!! Str::limit(strip_tags($product->transNow?->description), 50) !!}</p>
+              <p class="bs-desc">  {!! Str::limit(strip_tags($product->transNow?->description), 20) !!}</p>
 
               <div class="d-flex align-items-center justify-content-between">
                 <a href="{{ route('site.product.show', $product->transNow?->slug ?? $product->id) }}" class="btn bs-btn">@lang('button.view')</a>
