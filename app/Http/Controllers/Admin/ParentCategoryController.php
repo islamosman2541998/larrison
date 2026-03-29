@@ -42,7 +42,7 @@ class ParentCategoryController extends Controller
 
         $items = $query->paginate($this->pagination_count);
 
-        return view('admin.dashboard.parent_categories.index ', compact('items'));
+        return view('admin.dashboard.parent_categories.index', compact('items'));
     }
 
     public function create()
