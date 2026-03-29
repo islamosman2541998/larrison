@@ -35,7 +35,7 @@
                                 $isActive = app()->getLocale() === $lang;
                             @endphp
 
-                            <a href="{{ $url }}"
+                            {{-- <a href="{{ $url }}"
                                 class="text-white d-inline-flex align-items-center me-3 {{ $isActive ? 'fw-bold text-decoration-underline' : '' }}"
                                 rel="alternate" hreflang="{{ $lang }}">
                                 @if ($lang == 'en')
@@ -45,7 +45,7 @@
                                     <i class="fa-solid fa-language me-1"></i>
                                     عربي
                                 @endif
-                            </a>
+                            </a> --}}
                         @endforeach
                     </div>
 
