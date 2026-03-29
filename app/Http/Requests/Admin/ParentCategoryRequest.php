@@ -25,12 +25,12 @@ class ParentCategoryRequest extends FormRequest
     {
         $arr = [];
 
-        $arr += ['ar' => 'required|array'];
-        $arr += ['en' => 'required|array'];
+        $arr += ['ar' => 'nullable|array'];
+        $arr += ['en' => 'nullable|array'];
 
         foreach (config('translatable.locales') as $locale) {
-            $arr += [$locale . '.title' => 'required|min:1'];
-            $arr += [$locale . '.slug' => 'required|min:1'];
+            $arr += [$locale . '.title' => 'nullable|min:1'];
+            $arr += [$locale . '.slug' => 'nullable|min:1'];
             $arr += [$locale . '.description' => 'nullable|min:1'];
             $arr += [$locale . '.meta_title' => 'nullable|min:1'];
             $arr += [$locale . '.meta_desc' => 'nullable|min:1'];

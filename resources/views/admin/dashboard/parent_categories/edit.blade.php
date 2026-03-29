@@ -52,7 +52,7 @@
                                                                 </label>
                                                                 <div class="col-sm-10">
                                                                     <input class="form-control" type="text"
-                                                                           name="{{ $locale }}[title]" required
+                                                                           name="{{ $locale }}[title]" 
                                                                            id="title{{ $key }}"
                                                                            value="{{ $trans->title }}">
                                                                 </div>
@@ -129,7 +129,7 @@
                                                                     {{ trans('admin.title_in') . trans('lang.' . Locale::getDisplayName($locale)) }}
                                                                 </label>
                                                                 <div class="col-sm-10">
-                                                                    <input class="form-control" type="text" required
+                                                                    <input class="form-control" type="text" 
                                                                            name="{{ $locale }}[title]"
                                                                            id="title{{ $key }}">
                                                                 </div>

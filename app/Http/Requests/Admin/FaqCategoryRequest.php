@@ -12,7 +12,7 @@ class FaqCategoryRequest extends FormRequest {
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["{$locale}.title"] = 'required|string|max:255';
+            $rules["{$locale}.title"] = 'nullable|string|max:255';
             $rules["{$locale}.slug"] = 'nullable|string|max:255';
         }
 

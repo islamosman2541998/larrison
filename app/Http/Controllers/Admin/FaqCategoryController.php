@@ -55,7 +55,7 @@ class FaqCategoryController extends Controller
             'status' => 'nullable|boolean',
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules["{$locale}.title"] = 'required|string|max:255';
+            $rules["{$locale}.title"] = 'nullable|string|max:255';
         }
 
         $validated = $request->validate($rules);
@@ -108,7 +108,7 @@ class FaqCategoryController extends Controller
             'status' => 'nullable|boolean',
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules["{$locale}.title"] = 'required|string|max:255';
+            $rules["{$locale}.title"] = 'nullable|string|max:255';
         }
 
         $validated = $request->validate($rules);

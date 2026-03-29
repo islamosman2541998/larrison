@@ -7,7 +7,7 @@
     <div class="row mb-3">
         <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.title_in') .  trans('lang.' .Locale::getDisplayName($locale)) }}</label>
         <div class="col-sm-10">
-            <input class="form-control" required type="text" wire:keyup="updateSlug" wire:model="title" name="{{ $locale }}[title]" value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"  >
+            <input class="form-control"  type="text" wire:keyup="updateSlug" wire:model="title" name="{{ $locale }}[title]" value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"  >
         </div>
         @if ($errors->has($locale . '.title'))
         <span class="missiong-spam">{{ $errors->first($locale . '.title') }}</span>

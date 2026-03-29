@@ -25,6 +25,7 @@ trait TranslatableHandler
         : $model->translationForeignKey;
 
     foreach ($translateData as $locale => $transData) {
+        
         $transData['locale'] = $locale;
         $transData[$foreignKey] = $model->id;
 

@@ -38,7 +38,7 @@
                                                 <div class="row mb-3">
                                                     <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.title_in') . trans('lang.' . Locale::getDisplayName($locale)) }}</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" type="text" required name="{{ $locale }}[title]" value="{{ old($locale . '.title') }}" id="title{{ $key }}">
+                                                        <input class="form-control" type="text"  name="{{ $locale }}[title]" value="{{ old($locale . '.title') }}" id="title{{ $key }}">
                                                         @if ($errors->has($locale . '.title'))
                                                         <span class="missiong-spam">{{ $errors->first($locale . '.title') }}</span>
                                                         @endif
@@ -257,12 +257,22 @@
 
                                                 {{-- code ------------------------------------------------------------------------------------- --}}
                                                 <div class="row mb-3">
-                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.availability') }}</label>
+                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.code') }}</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" type="text" name="code" value="{{ old('code') }}">
                                                     </div>
                                                     @if ($errors->has('code'))
                                                     <span class="missiong-spam">{{ $errors->first('code') }}</span>
+                                                    @endif
+                                                </div>
+                                                {{-- availability ------------------------------------------------------------------------------------- --}}
+                                                <div class="row mb-3">
+                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.availability') }}</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" type="text" name="availability" value="{{ old('availability') }}">
+                                                    </div>
+                                                    @if ($errors->has('availability'))
+                                                    <span class="missiong-spam">{{ $errors->first('availability') }}</span>
                                                     @endif
                                                 </div>
 

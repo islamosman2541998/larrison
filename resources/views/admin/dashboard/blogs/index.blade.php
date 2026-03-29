@@ -39,7 +39,6 @@
                                 <tr>
                                     <th>{{ __('admin.id') }}</th>
                                     <th>{{ __('admin.title_en') }}</th>
-                                    <th>{{ __('admin.title_ar') }}</th>
                                     <th>{{ __('admin.image') }}</th>
                                     <th class="text-end">{{ __('admin.actions') }}</th>
                                 </tr>
@@ -49,7 +48,6 @@
                                     <tr>
                                         <td>{{ $blog->id }}</td>
                                         <td>{{ @$blog->translate('en')->title }}</td>
-                                        <td>{{ @$blog->translate('ar')->title }}</td>
                                         <td>
                                             @if ($blog->image)
                                                 <img src="{{ asset($blog->pathInView()) }}" width="80" alt="">

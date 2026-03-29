@@ -109,7 +109,7 @@
                                                             <label for="example-text-input"
                                                                 class="col-sm-2 col-form-label">{{ trans('admin.title_in') . trans('lang.' . Locale::getDisplayName($locale)) }}</label>
                                                             <div class="col-sm-10">
-                                                                <input class="form-control" type="text" required
+                                                                <input class="form-control" type="text" 
                                                                     name="{{ $locale }}[title]"
                                                                     value="{{ old($locale . '.title') }}"
                                                                     id="title{{ $key }}">
@@ -296,7 +296,7 @@
                                                                 <input class="form-control" type="file"
                                                                     id="example-number-input" name="image"
                                                                     value="{{ old('image') }}">
-                                                                <span class="text-danger"> Size: 358 x 360</span>
+                                                                {{-- <span class="text-danger"> Size: 358 x 360</span> --}}
 
                                                             </div>
                                                         </div>

@@ -17,6 +17,7 @@ class ProductCategory extends Model
         'image',
         //        'sale',
         'sort',
+        'code',
         'feature',
         'status',
         'created_by',

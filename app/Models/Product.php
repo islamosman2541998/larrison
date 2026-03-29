@@ -23,6 +23,7 @@ class Product extends Model
         'most_selling',
         'best_offer',
         'code',
+        'availability',
         'sort',
         'feature',
         'status',

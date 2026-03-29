@@ -42,16 +42,23 @@ class ProductCategoryRequest extends FormRequest
     {
         $arr = [];
 
-        $arr += ['ar' => 'required|array'];
-        $arr += ['en' => 'required|array'];
+        $arr += ['ar' => 'nullable|array'];
+        $arr += ['en' => 'nullable|array'];
 
         foreach (config('translatable.locales') as $locale) {
-            $arr += [$locale . '.title' => 'required|min:1'];
-            $arr += [$locale . '.slug' => 'required|min:1'];
-           $arr += [$locale . '.description' => 'nullable|min:1'];
-            $arr += [$locale . '.meta_title' => 'nullable|min:1'];
-            $arr += [$locale . '.meta_desc' => 'nullable|min:1'];
-            $arr += [$locale . '.meta_key' => 'nullable|min:1'];
+
+            if ($locale == 'en') {
+                $arr[$locale . '.title'] = 'required|string|min:1';
+                $arr[$locale . '.slug'] = 'required|string|min:1';
+            } else {
+                $arr[$locale . '.title'] = 'nullable|string';
+                $arr[$locale . '.slug'] = 'nullable|string';
+            }
+
+            $arr[$locale . '.description'] = 'nullable|string';
+            $arr[$locale . '.meta_title'] = 'nullable|string';
+            $arr[$locale . '.meta_desc'] = 'nullable|string';
+            $arr[$locale . '.meta_key'] = 'nullable|string';
         }
         $arr += ['image' => 'nullable|' . ImageValidate()];
 
@@ -69,15 +76,16 @@ class ProductCategoryRequest extends FormRequest
         $arr +=  ['gallery_feature.*'  => 'nullable|integer'];
 
         $arr +=  ['gallery_image'  => 'nullable|array'];
-        $arr +=  ['gallery_image.*'  => 'nullable|'. ImageValidate()];
+        $arr +=  ['gallery_image.*'  => 'nullable|' . ImageValidate()];
 
 
-        $arr += ['status' =>'nullable'];
-        $arr += ['sort' =>'nullable'];
-        $arr += ['feature' =>'nullable'];
+        $arr += ['status' => 'nullable'];
+        $arr += ['sort' => 'nullable'];
+        $arr += ['code' => 'nullable'];
+        $arr += ['feature' => 'nullable'];
         $arr += ['annual_occasion' => 'sometimes|boolean'];
         $arr += ['show_in_bottom' => 'sometimes|boolean'];
-        
+
 
         $arr +=  ['occasions'  => 'nullable|array'];
         $arr +=  ['occasions.*'  => 'nullable|exists:occassions,id'];
@@ -91,7 +99,8 @@ class ProductCategoryRequest extends FormRequest
     }
 
 
-    public function getSanitized(   ){
+    public function getSanitized()
+    {
 
         $data =  $this->validated();
 
@@ -101,25 +110,24 @@ class ProductCategoryRequest extends FormRequest
             $data['image'] = $img;
         }
 
-        
+
         $data['status'] = isset($data['status']) ? 1 : 0;
         $data['feature'] = isset($data['feature']) ? 1 : 0;
         $data['annual_occasion']  = isset($data['annual_occasion'])  ? 1 : 0;
         $data['show_in_bottom']  = isset($data['show_in_bottom'])  ? 1 : 0;
-        
-        
 
-        foreach(config('translatable.locales') as $locale){
-            $data[$locale]['slug'] = slug($data[$locale]['slug']);
+
+
+        foreach (config('translatable.locales') as $locale) {
+            if (!empty($data[$locale]['slug'])) {
+                $data[$locale]['slug'] = slug($data[$locale]['slug']);
+            }
         }
-        if (request()->isMethod('PUT')){
+        if (request()->isMethod('PUT')) {
             $data['updated_by']  = @auth()->user()->id;
-        }
-        else{
+        } else {
             $data['created_by']  = @auth()->user()->id;
         }
         return $data;
     }
-
-
 }

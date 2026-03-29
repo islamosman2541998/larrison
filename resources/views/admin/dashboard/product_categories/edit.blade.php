@@ -40,7 +40,7 @@
                                                 <div class="row mb-3">
                                                     <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.title_in') .  trans('lang.' .Locale::getDisplayName($locale)) }}</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" type="text" name="{{ $locale }}[title]" required id="title{{$key}}" {{--                   value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"--}} value="{{$trans->title}}">
+                                                        <input class="form-control" type="text" name="{{ $locale }}[title]"  id="title{{$key}}" {{--                   value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"--}} value="{{$trans->title}}">
                                                     </div>
                                                     @if ($errors->has($locale . '.title'))
                                                     <span class="missiong-spam">{{ $errors->first($locale . '.title') }}</span>
@@ -119,7 +119,7 @@
                                                 <div class="row mb-3">
                                                     <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.title_in') .  trans('lang.' .Locale::getDisplayName($locale)) }}</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" type="text" required name="{{ $locale }}[title]" id="title{{$key}}" {{--                   value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"--}}>
+                                                        <input class="form-control" type="text"  name="{{ $locale }}[title]" id="title{{$key}}" {{--                   value="{{ $model->trans[0]->title ??  old($locale . '.title') }}"--}}>
                                                     </div>
                                                     @if ($errors->has($locale . '.title'))
                                                     <span class="missiong-spam">{{ $errors->first($locale . '.title') }}</span>
@@ -563,6 +563,16 @@
                                                             @lang('admin.sort')</label>
                                                         <div class="col-sm-12">
                                                             <input class="form-control" type="number" placeholder="@lang('admin.sort')" name="sort" value="{{ $category->sort }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- code ------------------------------------------------------------------------------------- --}}
+                                                <div class="col-12">
+                                                    <div class="row mb-3">
+                                                        <label for="example-number-email" class="col-sm-12 col-form-label">
+                                                            @lang('products.code')</label>
+                                                        <div class="col-sm-12">
+                                                            <input class="form-control" type="text" placeholder="@lang('products.code')" name="code" value="{{ $category->code ?? old('code') }}">
                                                         </div>
                                                     </div>
                                                 </div>

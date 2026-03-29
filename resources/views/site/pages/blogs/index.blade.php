@@ -25,7 +25,7 @@
 
 
                 @forelse ($blogs as $key =>$blog)
-                    <div class="col-12 col-sm-6 col-lg-4 category-item" data-category="pharmaceuticals">
+                    <div class="col-12 col-sm-6 col-lg-4 category-item mt-3" data-category="pharmaceuticals">
                         <div class="category-card-clean">
                             <div class="category-card-clean__img">
                                 <img src="{{ asset($blog->pathInView()) }}" alt="Pharmaceuticals">
