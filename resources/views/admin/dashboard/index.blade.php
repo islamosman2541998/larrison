@@ -79,8 +79,24 @@
 
 
             {{-- ---------------------------------------------products---------------------------------------------------------------------- --}}
-            {{-- <h4 class="page-title navbar-custom-color">@lang('admin.products')</h4> --}}
-            {{-- <div class="col-md-6 col-xl-4">
+            <h4 class="page-title navbar-custom-color">@lang('admin.products')</h4>
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{ route('admin.parent_category.index') }}">
+                            <div class="mini-stat">
+                                <span class="mini-stat-icon bg-teal me-0 float-end"><i
+                                        class="fa fa-cube"></i></span>
+                                <div class="mini-stat-info">
+                                    <span class="counter text-teal">{{ App\Models\ParentCategory::count() }}</span>
+                                     @lang('parent_category.parent_categories')
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('admin.product_category.index') }}">
@@ -89,14 +105,14 @@
                                         class="fa fa-sitemap"></i></span>
                                 <div class="mini-stat-info">
                                     <span class="counter text-teal">{{ App\Models\ProductCategory::count() }}</span>
-                                    @lang('admin.product_categories')
+                                     @lang('admin.product_category')
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div> --}}
-            {{-- <div class="col-md-6 col-xl-4">
+            </div>
+            <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('admin.products.index') }}">
@@ -114,7 +130,7 @@
                         </a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             {{-- <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
