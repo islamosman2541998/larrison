@@ -32,7 +32,7 @@ class ParentCategoryController extends Controller
             }
         }
 
-        if ($request->title !== '') {
+        if ($request->filled('title')) {
             $search = '%' . $request->input('title') . '%';
             $query->whereHas('trans', function ($q) use ($search) {
                 $q->where('locale', app()->getLocale())
