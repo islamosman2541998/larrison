@@ -345,16 +345,10 @@ Route::group([
 
 
                 /************************** start parent_category ************************************/
-                Route::post('parent_category/actions', [ParentCategoryController::class, 'actions'])
-                    ->name('parent_category.actions');
-
-                Route::get('parent-category-update-featured/{id}', [ParentCategoryController::class, 'updateFeature'])
-                    ->name('parent_category.update-featured');
-
-                Route::get('parent-category-update-status/{id}', [ParentCategoryController::class, 'updateStatus'])
-                    ->name('parent_category.update-status');
                 Route::resource('parent_category', ParentCategoryController::class);
-
+                Route::get('parent-category-update-featured/{id}', [ParentCategoryController::class, 'updateFeature'])->name('parent_category.update-featured');
+                Route::get('parent-category-update-status/{id}', [ParentCategoryController::class, 'updateStatus'])->name('parent_category.update-status');
+                Route::post('parent_category/actions', [ParentCategoryController::class, 'actions'])->name('parent_category.actions');
                 /************************** end parent_category ************************************/
 
                 /************************** start products gallery ************************************/
