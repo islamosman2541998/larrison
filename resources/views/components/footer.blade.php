@@ -26,12 +26,15 @@
                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-3" data-animate="animate__backInLeft">
                            <h4 class="text-white mb-4">Our categories</h4>
                            <div class="d-flex flex-column justify-content-start">
-                               <a class="text-white mb-2" href="#">Pharmaceuticals</a>
-                               <a class="text-white mb-2" href="#">Cosmetics</a>
-                               <a class="text-white mb-2" href="#">Medical Supplies</a>
-                               <a class="text-white mb-2" href="#">Baby Care</a>
-                               <a class="text-white" href="#">Personal Care </a>
+                             @forelse ($our_categories as $category)
+                               <a class="text-white mb-2" href="{{ route('site.products.index', $category->slug) }}">
+                                   {{ $category->trans->where('locale', app()->getLocale())->first()->title ?? 'No Title' }}
+                               </a>
+                             @empty
+                               <p>No categories available</p>
+                             @endforelse
                            </div>
+                          
                        </div>
                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-3" data-animate="animate__backInLeft">
                            <h4 class="text-white mb-4">@lang('home.get_in_touch')</h4>

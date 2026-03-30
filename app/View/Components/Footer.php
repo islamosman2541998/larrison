@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Menue;
 use App\Models\Portfolios;
+use App\Models\ProductCategory;
 use App\Models\SettingsValues;
 use Illuminate\View\Component;
 use App\Settings\SettingSingleton;
@@ -27,7 +28,7 @@ class Footer extends Component
     public $facebookLink;
     public $instagramLink;
 
-    public $our_work;
+    public $our_categories;
 
 
     public function __construct()
@@ -40,7 +41,7 @@ class Footer extends Component
         $this->footerLinks = Menue::with('trans')->orderBy('sort', 'ASC')->footer()->active()->get();
 
 
-        $this->our_work = Portfolios::active()->feature()
+        $this->our_categories = ProductCategory::active()->feature()
 
             ->take(5)
             ->with('trans')
