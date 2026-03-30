@@ -73,10 +73,10 @@
                                 </div>
                             @endif
 
-                            @if ($product->code)
+                            @if ($product->availability)
                                 <div class="meta-item">
                                     <strong>{{ __('site.availability') }}:</strong>
-                                    <span>{{ $product->code }}</span>
+                                    <span>{{ $product->availability }}</span>
                                 </div>
                             @endif
 
