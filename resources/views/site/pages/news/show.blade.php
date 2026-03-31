@@ -19,7 +19,7 @@
          
         </div>
         <div class="col-md-12 mt-5 fs-5 d-flex flex-column align-items-center">
-               <h1 class="mb-3">{{ $news->title }}</h1>
+               <h1 class="mb-3 text-dark">{{ $news->title }}</h1>
             <div class="blog-description">
                 {!! $news->description !!}
             </div>

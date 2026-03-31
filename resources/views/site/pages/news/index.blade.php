@@ -6,81 +6,100 @@
 
 
 @section('content')
-    <!-- ===== HERO ===== -->
-    <header class="hero" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-        <div class="container">
-            <p class="kicker color_red">Company Updates</p>
-            <h1 class="color_blue">Latest News & Press</h1>
-            
-            <p class="breadcrumb color_red"><a href="{{ route('site.home') }}" target="_blank">@lang('home.home')</a> / @lang('news.news')</p>
+
+<section class="news-page pt-5 pb-5" id="news-page">
+    <div class="container">
+        
+        {{-- Page Head --}}
+        <div class="text-center mb-5 pt-5">
+            <h1 class="news-title text-dark fw-bold">News & Insights</h1>
+            <p class="news-subtitle text-muted mx-auto" style="max-width: 600px;">
+                Stay updated with our latest news, healthcare insights, product
+                updates, and company announcements.
+            </p>
         </div>
-    </header>
 
-    <!-- ===== FEATURED NEWS ===== -->
-    <section class="section" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-        <div class="container">
-            <article class="featured">
-                <a class="feat-thumb" href="#" aria-label="Featured news image">
-                    <img src="{{ asset($first_news->image) }}" alt="Featured announcement" loading="lazy">
-                </a>
-                <div class="feat-body">
-                    <span class="badge">Press Release</span>
-                    <h2 class="feat-title">{{ $first_news->title }}</h2>
-                    <div class="meta"> {{ $first_news->created_at }}</div>
-                    <p id="featNews" class="feat-excerpt exp-text" data-lines="3">
-                        {!! Str::limit($first_news->description, 400) !!}
-                    </p>
-                    <a href="{{ route('site.news.show', $first_news->id) }}">
-                        <button class="btn ghost exp-toggle" data-target="#featNews"
-                            aria-expanded="false">@lang('site.read_more')</button>
-
-                    </a>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- ===== NEWS GRID ===== -->
-    <section class="section" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-        <div class="container">
-            <div class="news-grid">
-                @forelse ($news as $new)
-                    <article class="news-card">
-                        <img class="card-img" src="{{ asset($new->image) }}" alt="Distributor upgrade">
-                        <div class="card-body">
-                            <div class="meta-row">
-                                <span class="badge">Update</span>
-                                <time datetime="2025-09-12" class="date">{{ $new->created_at }}</time>
-                            </div>
-                            <h3 class="title">{{ $new->title }}</h3>
-                            <p id="n1" class="excerpt exp-text" data-lines="3">
-                                {!! Str::limit($new->description, 200) !!}
-                            </p>
-                            <a href="{{ route('site.news.show', $new->id) }}">
-                                <button class="btn ghost exp-toggle" data-target="#n1"
-                                    aria-expanded="false">@lang('site.read_more')</button>
-
-                            </a>
+        {{-- News Grid --}}
+        <div class="row g-4">
+            @forelse ($news as $new)
+                <div class="col-md-4">
+                    <div class="news-card h-100 rounded-3 overflow-hidden shadow-sm">
+                        
+                        {{-- Image --}}
+                        <div class="news-card-img">
+                            <img src="{{ asset($new->image) }}" alt="{{ $new->title }}" />
                         </div>
-                    </article>
 
-                @empty
-                    <h3>@lang('site.no_news')</h3>
-                @endforelse
+                        {{-- Content --}}
+                        <div class="news-card-content p-3">
+                            <h5 class="fw-bold mb-2">{{ $new->title }}</h5>
+                            <p class="text-muted small mb-3">
+                                {!! Str::limit(strip_tags($new->description), 120) !!}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted small">
+                                    <i class="fa-regular fa-calendar me-1"></i>
+                                    {{ $new->created_at->format('d M Y') }}
+                                </span>
+                                <a href="{{ route('site.news.show', $new->id) }}" class="news-link">
+                                    @lang('site.read_more') →
+                                </a>
+                            </div>
+                        </div>
 
-
-
-
-
-
-            </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center">
+                    <h5 class="text-muted">@lang('site.no_news')</h5>
+                </div>
+            @endforelse
         </div>
-    </section>
 
+    </div>
+</section>
 @endsection
 
 <style>
-    .hero{
-        margin-top: 60px !important;
-    }    
+.news-card {
+    background: #fff;
+    border: 1px solid #eee;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.news-card-img {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.news-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.news-card:hover .news-card-img img {
+    transform: scale(1.05);
+}
+
+.news-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.news-link:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
 </style>

@@ -53,7 +53,7 @@
                                                         <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.slug_in') . trans('lang.' .Locale::getDisplayName($locale)) }} </label>
 
                                                         <div class="col-sm-10">
-                                                            <input type="text" id="slug{{ $key }}" name="{{ $locale }}[slug]" value="{{ @$news->trans->where('locale', $locale)->first()->slug }}" class="form-control slug mb-3" required>
+                                                            <input type="text" id="slug{{ $key }}" name="{{ $locale }}[slug]" value="{{ @$news->trans->where('locale', $locale)->first()->slug }}" class="form-control slug mb-3" >
                                                             @if ($errors->has($locale . '.slug'))
                                                             <span class="missiong-spam">{{ $errors->first($locale . '.slug') }}</span>
                                                             @endif
