@@ -430,7 +430,7 @@
 
 
                 {{-- services --------------------------------------------------------------- --}}
-                {{-- <li>
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fa fa-smile"></i>
                         <span> @lang('services.services')</span>
@@ -442,7 +442,7 @@
                             <a href="{{ route('admin.services.create') }}"> @lang('services.create_services')</a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
 
 
 

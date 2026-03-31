@@ -13,16 +13,11 @@ class ServicesController extends Controller
 
     public function index()
     {
-        $categories = ServiceCategory::with('transNow')
-            ->active()
-            ->orderBy('sort', 'ASC')
-            ->get();
-        $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
-                $partners = Partner::with('translations')->where('status', 1)->get();
+       $services = Services::with('transNow')->active()->orderBy('sort', 'ASC')->get();
 
 
 
-        return view('site.pages.services.index', compact('categories', 'services_section','partners'));
+        return view('site.pages.services.index', compact('services'));
     }
 
 

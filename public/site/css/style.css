@@ -1951,3 +1951,133 @@ display:block;
     padding:18px;
   }
 }
+
+/* servicepage */
+.services-modern{
+  background: #fff;
+}
+
+.services-modern__head{
+  max-width: 850px;
+  margin-inline: auto;
+}
+
+.services-modern__tag{
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(144,212,221,0.18);
+  border: 1px solid rgba(144,212,221,0.35);
+  color: var(--main);
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.services-modern__title{
+  font-size: clamp(36px, 4vw, 58px);
+  color: var(--main);
+  margin-bottom: 12px;
+}
+
+.services-modern__subtitle{
+  color: #6b7b86;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+/* cards */
+.service-card-modern{
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(49,70,87,0.10);
+  border-radius: 24px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.service-card-modern:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.08);
+}
+
+.service-card-modern__icon{
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(144,212,221,0.18);
+  color: var(--secondary);
+  font-size: 28px;
+}
+
+.service-card-modern__content h3{
+  color: var(--main);
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.service-card-modern__content p{
+  color: black;
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 0;
+}
+
+.service-card-modern--wide{
+  align-items: center;
+}
+
+/* cta */
+.services-modern__cta{
+  background: rgba(144,212,221,0.14);
+  border: 1px solid rgba(144,212,221,0.35);
+  border-radius: 24px;
+  padding: 40px 20px;
+}
+
+.services-modern__cta h3{
+  color: var(--main);
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.services-modern__cta p{
+  color: black;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.services-modern__btn{
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--main);
+  font-weight: 800;
+}
+
+.services-modern__btn:hover{
+  background: #7fcbd6;
+  border-color: #7fcbd6;
+  color: var(--main);
+}
+
+@media (max-width: 768px){
+  .service-card-modern{
+    flex-direction: column;
+    padding: 22px 18px;
+  }
+
+  .service-card-modern__content h3{
+    font-size: 20px;
+  }
+}
