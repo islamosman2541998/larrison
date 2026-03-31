@@ -468,9 +468,9 @@
 
                 {{--         News             --}}
 
-                {{-- <li><a href="{{ route('admin.news.index') }}">
+                <li><a href="{{ route('admin.news.index') }}">
                         <i class="fas fa-newspaper"></i>
-                        @lang('admin.newss')</a></li> --}}
+                        @lang('admin.newss')</a></li>
 
 
                 {{--         jobs             --}}
