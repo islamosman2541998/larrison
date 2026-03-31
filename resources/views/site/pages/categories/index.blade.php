@@ -34,13 +34,18 @@
 
             @foreach($parentCategories as $parent)
                 @foreach($parent->productCategories as $subCat)
-                    <div class="col-12 col-sm-6 col-lg-4 category-item" data-category="parent-{{ $parent->id }}">
+                    <div class="col-12 pt-3 col-sm-6 col-lg-4 category-item" data-category="parent-{{ $parent->id }}">
                         <div class="category-card-clean">
                             <div class="category-card-clean__img">
                                 <img src="{{ asset($subCat->pathInView()) }}" alt="{{ $subCat->transNow?->title }}">
                             </div>
                             <div class="category-card-clean__content">
-                                <h3>{{ $subCat->transNow?->title }}</h3>
+                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                        <h3>{{ optional($subCat->transNow)->title }}</h3>
+                                        @if ($subCat->code)
+                                            <p>Code: {{ $subCat->code }}</p>
+                                        @endif
+                                    </div>
                                 <p>{{ Str::limit(strip_tags($subCat->transNow?->description), 80) }}</p>
                                 <a href="{{ route('site.category.products', $subCat->transNow?->slug ?? $subCat->id) }}" class="category-card-link">
                                     {{ __('site.view_products') }} →

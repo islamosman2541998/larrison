@@ -8,39 +8,43 @@ use Livewire\Component;
 class CategoriesSection extends Component
 {
     public $parentCategories;
-    public $activeParentId = null;
     public $subCategories = [];
+    public $activeParentId = 'all'; 
 
-    public function mount()
-    {
-        $this->parentCategories = ParentCategory::active()
-            ->with([
-                'transNow',
-                'productCategories' => function ($q) {
-                    $q->where('status', 1);
-                },
-                'productCategories.transNow',
-            ])
-            ->orderBy('sort', 'ASC')
-            ->get();
+   public function mount()
+{
+    $this->parentCategories = ParentCategory::active()
+        ->with([
+            'transNow',
+            'productCategories' => function ($q) {
+                $q->where('status', 1);
+            },
+            'productCategories.transNow',
+        ])
+        ->orderBy('sort', 'ASC')
+        ->get();
 
-        // Set first parent as active by default
-        if ($this->parentCategories->count() > 0) {
-            $first = $this->parentCategories->first();
-            $this->activeParentId = $first->id;
-            $this->subCategories = $first->productCategories;
-        }
-    }
+    $this->loadSubCategories('all');
+}
 
-    public function selectParent($parentId)
-    {
-        $this->activeParentId = $parentId;
-
+ public function selectParent($parentId)
+{
+    $this->activeParentId = $parentId;
+    $this->loadSubCategories($parentId);
+}
+private function loadSubCategories($parentId)
+{
+    if ($parentId === 'all') {
+        $this->subCategories = $this->parentCategories
+            ->pluck('productCategories')
+            ->flatten()
+            ->unique('id')
+            ->values();
+    } else {
         $parent = $this->parentCategories->find($parentId);
-        if ($parent) {
-            $this->subCategories = $parent->productCategories;
-        }
+        $this->subCategories = $parent ? $parent->productCategories : collect();
     }
+}
 
     public function render()
     {

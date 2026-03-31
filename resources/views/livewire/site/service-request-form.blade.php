@@ -8,7 +8,9 @@
         <section class="switcher {{ $showForm ? 'show-form' : '' }}" id="switcher">
             <!-- VISUAL -->
             <div class="visual">
-                <div class="logo-wrap Hulul">Larrison</div>
+                <div class="visual-bg ">
+                    <img class="h-50 w-50  mx-auto" src="{{ asset('site/img/logo.png') }}" alt="Request Service">
+                </div>
             </div>
 
             <!-- CONTENT -->
@@ -16,7 +18,7 @@
                 <!-- Intro (default) -->
                 <div class="intro" id="introPane" style="{{ $showForm ? 'display:none' : '' }}">
                     <h1 class="textwhite">Let's build something great together</h1>
-                    <p>Share your project and our team will get back within 24 hours.</p>
+                    <p style="color: #60B3DC">Share your project and our team will get back within 24 hours.</p>
                     <div class="point">
                         <i class="fa-solid fa-circle-check"></i> Dedicated account manager
                     </div>
@@ -161,7 +163,7 @@
                                     <i class="fa-solid fa-spinner fa-spin"></i> Submitting...
                                 </span>
                             </button>
-                            <button class="btn btn-ghost" type="button" wire:click="goBack">
+                            <button class="btn btn-ghost text-white" type="button" wire:click="goBack">
                                 <i class="fa-solid fa-arrow-left-long"></i> Back
                             </button>
                         </div>
@@ -173,6 +175,9 @@
 </div>
 
 <style>
+    .content {
+        background-color: #0F1A33 !important;
+    }
     request-content {
 margin-top: 150px !important;
     }

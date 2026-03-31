@@ -9,6 +9,13 @@
 
         <!-- Parent Category Tabs -->
         <ul class="nav nav-pills justify-content-center gap-2 cats-nav mb-4" role="tablist">
+             {{-- All Categories --}}
+        <li class="nav-item" role="presentation">
+            <button wire:click="selectParent('all')" class="nav-link {{ $activeParentId == 'all' ? 'active' : '' }}"
+                type="button">
+                {{ __('site.all_categories') }}
+            </button>
+        </li>
             @foreach ($parentCategories as $parent)
                 <li class="nav-item" role="presentation">
                     <button wire:click="selectParent({{ $parent->id }})"
@@ -19,12 +26,13 @@
                 </li>
             @endforeach
         </ul>
-
+       
         <!-- Sub Categories Cards -->
         <div wire:loading.class="opacity-50" style="transition: opacity 0.3s ease;">
 
             @if (count($subCategories) > 0)
                 <div class="row g-4">
+
                     @foreach ($subCategories as $subCat)
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div class="sub-card-bs">
