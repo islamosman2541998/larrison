@@ -25,7 +25,7 @@
             <div class="row g-4">
 
                 @forelse ( $services as $service )
-                     <div class="col-12 col-lg-6">
+                     <div class="col-12 pt-3 col-lg-6">
                     <div class="service-card-modern h-100">
                         <div class="service-card-modern__icon">
                             <i class="fa-solid fa-leaf"></i>
