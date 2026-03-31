@@ -92,7 +92,7 @@
                                         <th>#</th>
                                         <th>@lang('admin.title')</th>
                                         <th>@lang('admin.description')</th>
-                                        <th>@lang('admin.category')</th>
+                                        {{-- <th>@lang('admin.category')</th> --}}
                                         <th>@lang('articles.sort')</th>
                                         <th>@lang('admin.created_at')</th>
                                         <th>@lang('admin.updated_at')</th>
@@ -117,14 +117,14 @@
                                                 {{ substr(removeHTML($item->trans->where('locale', $current_lang)->first()->description), 0, 30) }}
 
                                             </td>
-                                               <td>
+                                               {{-- <td>
                                                 @if ($item->category)
                                                     {{ optional($item->category->trans->where('locale', $current_lang)->first())->title ??
                                                         (optional($item->category->transNow)->title ?? '-') }}
                                                 @else
                                                     -
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $item->sort }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->updated_at }}</td>

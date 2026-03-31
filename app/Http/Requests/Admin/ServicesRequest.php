@@ -45,8 +45,8 @@ class ServicesRequest extends FormRequest
 
         $req = [];
         foreach(config('translatable.locales') as $locale){
-            $req += [$locale . '.title' => 'required'];
-            $req += [$locale . '.slug' => 'required'];
+            $req += [$locale . '.title' => 'nullable'];
+            $req += [$locale . '.slug' => 'nullable'];
             $req += [$locale . '.description' => 'nullable'];
             $req += [$locale . '.content' => 'nullable'];
 
@@ -61,7 +61,7 @@ class ServicesRequest extends FormRequest
         $req += ['news_ticker' =>'nullable'];
         $req += ['updated_by' =>'nullable'];
         $req += ['created_by' =>'nullable'];
-        $req += ['service_category_id' =>'required'];
+        $req += ['service_category_id' =>'nullable'];
 
 
 

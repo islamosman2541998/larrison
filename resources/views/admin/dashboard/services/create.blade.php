@@ -71,7 +71,7 @@
                                                                     <input type="text" id="slug{{ $key }}"
                                                                         name="{{ $locale }}[slug]"
                                                                         value="{{ old($locale . '.slug') }}"
-                                                                        class="form-control slug" required>
+                                                                        class="form-control slug" >
                                                                     @if ($errors->has($locale . '.slug'))
                                                                         <span
                                                                             class="missiong-spam">{{ $errors->first($locale . '.slug') }}</span>
@@ -225,7 +225,7 @@
                                         <div class="accordion-body">
 
                                             {{-- image ------------------------------------------------------------------------------------- --}}
-                                            <div class="col-12">
+                                            {{-- <div class="col-12">
                                                 <div class="row mb-3">
                                                     <label for="example-number-input" col-form-label>
                                                         @lang('admin.image'):</label>
@@ -235,10 +235,10 @@
                                                             name="image" value="{{ old('image') }}">
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             {{-- category ------------------------------------------------------------------------------------- --}}
-                                            <div class="row mb-3">
+                                            {{-- <div class="row mb-3">
                                                 <label class="col-sm-12 col-form-label">@lang('admin.category')</label>
                                                 <div class="col-sm-12">
                                                     <select name="service_category_id" class="form-control">
@@ -251,7 +251,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             {{-- sort ------------------------------------------------------------------------------------- --}}
                                             <div class="col-12">
                                                 <div class="row mb-3">

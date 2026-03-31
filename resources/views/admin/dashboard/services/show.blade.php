@@ -188,7 +188,7 @@
                                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
 
-                                                    @if( @$article->image != null)
+                                                    {{-- @if( @$article->image != null)
                                                     <div class="col-12">
                                                         <div class="row mb-3">
                                                             <div class="col-sm-12">
@@ -198,7 +198,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @endif
+                                                    @endif --}}
 
 
                                                     {{-- sort ------------------------------------------------------------------------------------- --}}

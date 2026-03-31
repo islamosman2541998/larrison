@@ -236,7 +236,7 @@
                                                 @endif
                                             </div>
                                             {{-- image ------------------------------------------------------------------------------------- --}}
-                                            <div class="col-12">
+                                            {{-- <div class="col-12">
                                                 <div class="row mb-3">
                                                     <label for="example-number-input" col-form-label>
                                                         @lang('admin.image'):</label>
@@ -246,8 +246,8 @@
                                                             name="image" value="{{ old('image') }}">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-3">
+                                            </div> --}}
+                                            {{-- <div class="row mb-3">
                                                 <label class="col-sm-12 col-form-label">@lang('admin.category')</label>
                                                 <div class="col-sm-12">
                                                     <select name="service_category_id" class="form-control">
@@ -260,7 +260,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             {{-- sort ------------------------------------------------------------------------------------- --}}
                                             <div class="col-12">
                                                 <div class="row mb-3">
