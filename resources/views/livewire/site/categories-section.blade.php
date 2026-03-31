@@ -8,7 +8,7 @@
         </div>
 
         <!-- Parent Category Tabs -->
-        <ul class="nav nav-pills justify-content-center gap-2 cats-nav mb-4" role="tablist">
+        <ul class="nav nav-pills justify-content-center  gap-2 cats-nav mb-4" role="tablist">
              {{-- All Categories --}}
         <li class="nav-item" role="presentation">
             <button wire:click="selectParent('all')" class="nav-link {{ $activeParentId == 'all' ? 'active' : '' }}"
@@ -17,7 +17,7 @@
             </button>
         </li>
             @foreach ($parentCategories as $parent)
-                <li class="nav-item" role="presentation">
+                <li class="nav-item px-1" role="presentation">
                     <button wire:click="selectParent({{ $parent->id }})"
                         class="nav-link {{ $activeParentId == $parent->id ? 'active' : '' }}" type="button"
                         role="tab">
@@ -230,7 +230,7 @@
         }
 
         .cats-nav {
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             overflow-x: auto;
             justify-content: flex-start !important;
             padding-bottom: 0.5rem;
