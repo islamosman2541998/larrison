@@ -34,7 +34,7 @@
                 <div class="row g-4">
 
                     @foreach ($subCategories as $subCat)
-                        <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="col-12  col-sm-6 col-lg-3 pt-3">
                             <div class="sub-card-bs">
                                 <div class="sub-img-bs">
                                     <img src="{{ asset($subCat->pathInView()) }}"
