@@ -166,7 +166,7 @@
 
 
                                 {{-- images Gellary  --}}
-                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample">
+                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage">
                                             <button class="accordion-button fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseOne">
@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
 
-                                </div> --}}
+                                </div>
 
                             </div>
 

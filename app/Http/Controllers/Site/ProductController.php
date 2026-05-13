@@ -21,30 +21,26 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        // البحث في كل اللغات مش اللغة الحالية بس
         $translation = ProductTranslation::where('slug', $slug)->first();
+
+        $relations = [
+            'transNow',
+            'trans',
+            'categories.transNow',
+            'categories.parentCategories.transNow',
+            'tipsActive.transNow',
+            'galleryGroup.images' => function ($q) {
+                $q->active()->orderBy('sort', 'ASC');
+            },
+        ];
 
         if ($translation) {
             $product = Product::active()
-                ->with([
-                    'transNow',
-                    'trans',
-                    'categories.transNow',
-                    'categories.parentCategories.transNow',
-                    'tipsActive.transNow',
-                    'galleryGroup.images',
-                ])
+                ->with($relations)
                 ->find($translation->product_id);
         } else {
             $product = Product::active()
-                ->with([
-                    'transNow',
-                    'trans',
-                    'categories.transNow',
-                    'categories.parentCategories.transNow',
-                    'tipsActive.transNow',
-                    'galleryGroup.images',
-                ])
+                ->with($relations)
                 ->find($slug);
         }
 
@@ -52,8 +48,8 @@ class ProductController extends Controller
             abort(404);
         }
 
-        // لو الـ slug مش بتاع اللغة الحالية → redirect للـ slug الصح
         $currentSlug = $product->transNow?->slug;
+
         if ($currentSlug && $currentSlug !== $slug) {
             return redirect()->route('site.product.show', $currentSlug, 301);
         }
@@ -62,10 +58,11 @@ class ProductController extends Controller
         $parentCategory = $category ? $category->parentCategories->first() : null;
 
         $relatedProducts = collect();
+
         if ($category) {
             $relatedProducts = $category->products()
                 ->where('products.id', '!=', $product->id)
-                ->where('status', 1)
+                ->where('products.status', 1)
                 ->with('transNow')
                 ->limit(4)
                 ->get();

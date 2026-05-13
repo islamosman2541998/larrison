@@ -299,7 +299,7 @@
 
                                 @if ($product->galleryGroup && $product->galleryGroup->images && $product->galleryGroup->images->count())
                                 {{-- images Gellary  --}}
-                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image_old">
+                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image_old">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage2">
                                             <button class="accordion-button fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage2" aria-expanded="true" aria-controls="collapseOne">
@@ -334,11 +334,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
                                 @endif
 
                                 {{-- images Gellary  --}}
-                                {{-- <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image">
+                                <div class="accordion mt-4 mb-4 bg-danger" id="accordionExample_image">
                                     <div class="accordion-item border rounded">
                                         <h2 class="accordion-header" id="headingImage">
                                             <button class="accordion-button fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="true" aria-controls="collapseOne">
@@ -368,7 +368,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                             </div>
 
