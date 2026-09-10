@@ -18,7 +18,7 @@
     <livewire:site.categories-section />
 
     <!-- Best Sellers -->
-    @include('site.pages.bestproducts')
+    {{-- @include('site.pages.bestproducts') --}}
 
 
 
