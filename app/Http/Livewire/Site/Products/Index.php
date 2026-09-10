@@ -12,16 +12,16 @@ class Index extends Component
 
     public function mount($categories){
         $this->categories = $categories;
-        $this->products = Product::with('transNow')->active()->get();
+        $this->products = Product::with('transNow', 'trans')->active()->orderBy('sort', 'ASC')->get();
     }
 
     public function changeCategory($id){
         $this->selectedCategory = $id;
         if($id == 0){
-            $this->products = Product::with('transNow')->active()->orderBy('sort', 'ASC')->get();
+            $this->products = Product::with('transNow', 'trans')->active()->orderBy('sort', 'ASC')->get();
         }
         else{
-            $this->products = Product::with('transNow')->active()->orderBy('sort', 'ASC')->whereHas('categories', function ($query) use ($id) {
+            $this->products = Product::with('transNow', 'trans')->active()->orderBy('sort', 'ASC')->whereHas('categories', function ($query) use ($id) {
                 $query->where('product_categories.id', $id);
             })->get();
         }

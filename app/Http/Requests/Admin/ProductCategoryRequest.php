@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Models\ProductCategory;
+use App\Models\ProductCategoryTranslation;
 use App\Traits\FileHandler;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -42,6 +43,9 @@ class ProductCategoryRequest extends FormRequest
     {
         $arr = [];
 
+        // On update the current record must be excluded from the check.
+        $currentId = optional($this->route('product_category'))->id ?? $this->route('product_category');
+
         $arr += ['ar' => 'nullable|array'];
         $arr += ['en' => 'nullable|array'];
 
@@ -49,10 +53,10 @@ class ProductCategoryRequest extends FormRequest
 
             if ($locale == 'en') {
                 $arr[$locale . '.title'] = 'required|string|min:1';
-                $arr[$locale . '.slug'] = 'required|string|min:1';
+                $arr[$locale . '.slug'] = ['required', 'string', 'min:1', $this->uniqueSlugRule($currentId)];
             } else {
                 $arr[$locale . '.title'] = 'nullable|string';
-                $arr[$locale . '.slug'] = 'nullable|string';
+                $arr[$locale . '.slug'] = ['nullable', 'string', $this->uniqueSlugRule($currentId)];
             }
 
             $arr[$locale . '.description'] = 'nullable|string';
@@ -96,6 +100,30 @@ class ProductCategoryRequest extends FormRequest
         }
 
         return $arr;
+    }
+
+
+    /**
+     * A slug must resolve to exactly one category, otherwise the public page
+     * cannot tell which record a URL refers to.
+     */
+    protected function uniqueSlugRule($currentId)
+    {
+        return function ($attribute, $value, $fail) use ($currentId) {
+            if (! $value) {
+                return;
+            }
+
+            $exists = ProductCategoryTranslation::where('slug', slug($value))
+                ->when($currentId, fn ($q) => $q->where('product_category_id', '!=', $currentId))
+                // Ignore leftover rows of already deleted categories.
+                ->whereHas('category')
+                ->exists();
+
+            if ($exists) {
+                $fail(__('validation.unique', ['attribute' => $attribute]));
+            }
+        };
     }
 
 

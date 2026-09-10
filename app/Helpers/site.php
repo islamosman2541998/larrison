@@ -38,3 +38,20 @@ if (!function_exists('getPages')) {
         return $pages ;
     }
 }
+
+
+if (!function_exists('no_image_path')) {
+    /**
+     * Fallback image used whenever a record has no picture (or the uploaded
+     * file is missing on disk).
+     *
+     * `/public/attachments` is git-ignored, so the old
+     * `/attachments/no_image/no_image.png` placeholder never reaches the
+     * server and every empty record rendered a broken image. This asset is
+     * versioned with the code instead.
+     */
+    function no_image_path(): string
+    {
+        return '/images/no-image.svg';
+    }
+}

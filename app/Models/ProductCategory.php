@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\PromoCode;
+use App\Traits\FindableBySlug;
+use App\Traits\HasTranslationFallback;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductCategory extends Model
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, FindableBySlug, HasTranslationFallback;
 
 
     protected $fillable = [
@@ -168,10 +170,16 @@ class ProductCategory extends Model
     {
         parent::boot();
 
-        // // Apply the relationship globally
-        // static::addGlobalScope('transNow', function (Builder $builder) {
-        //     $builder->with('transNow');
-        // });
+        // This model is hard deleted. Without this hook its translation rows
+        // survive the delete and keep owning the slug, which made the public
+        // "category products" page answer 404 for slugs that were reused by a
+        // freshly created category.
+        static::deleting(function (self $category) {
+            $category->trans()->delete();
+            $category->parentCategories()->detach();
+            $category->products()->detach();
+            $category->promoCodes()->detach();
+        });
     }
 
     /******************end boot model**********************/
@@ -195,7 +203,7 @@ class ProductCategory extends Model
         if (file_exists(public_path() . $this->path() . $this->image)   && $this->image) {
             $path =   $this->path() . $this->image;
         } else {
-            $path = '/attachments/no_image/no_image.png';
+            $path = no_image_path();
         }
         return $path;
     }

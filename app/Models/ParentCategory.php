@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\FindableBySlug;
+use App\Traits\HasTranslationFallback;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ParentCategory extends Model
 {
-    use HasFactory, SoftDeletes, Translatable;
+    use HasFactory, SoftDeletes, Translatable, FindableBySlug, HasTranslationFallback;
 
     protected $fillable = [
         'image',
@@ -93,6 +95,13 @@ class ParentCategory extends Model
     protected static function boot()
     {
         parent::boot();
+
+        // Soft deletes keep the row (and therefore its translations) around on
+        // purpose, so translations are only dropped on a permanent delete.
+        static::forceDeleting(function (self $parentCategory) {
+            $parentCategory->trans()->delete();
+            $parentCategory->productCategories()->detach();
+        });
     }
 
     // ======================== Images ========================
@@ -112,7 +121,7 @@ class ParentCategory extends Model
         if (file_exists(public_path() . $this->path() . $this->image) && $this->image) {
             $path = $this->path() . $this->image;
         } else {
-            $path = '/attachments/no_image/no_image.png';
+            $path = no_image_path();
         }
         return $path;
     }

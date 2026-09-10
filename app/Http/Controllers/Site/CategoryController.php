@@ -5,40 +5,51 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\ParentCategory;
 use App\Models\ProductCategory;
-use App\Models\ProductCategoryTranslation;
-use App\Models\ParentCategoryTranslation;
 
 class CategoryController extends Controller
 {
-    
     public function index()
     {
         $parentCategories = ParentCategory::active()
             ->with([
                 'transNow',
+                'trans',
                 'productCategories' => function ($q) {
-                    $q->where('status', 1)->orderBy('sort', 'ASC');
+                    $q->where('product_categories.status', 1)
+                      ->orderBy('product_categories.sort', 'ASC');
                 },
                 'productCategories.transNow',
+                'productCategories.trans',
+                'productCategories.parentCategories:id',
             ])
             ->orderBy('sort', 'ASC')
             ->get();
 
-        return view('site.pages.categories.index', compact('parentCategories'));
+        // A product category may belong to several parents; without this the
+        // same card would be rendered once per parent. Categories that are not
+        // attached to any parent are appended so they are not invisible on the
+        // site just because the admin forgot to tick a parent.
+        $productCategories = $parentCategories
+            ->pluck('productCategories')
+            ->flatten()
+            ->concat(
+                ProductCategory::active()
+                    ->whereDoesntHave('parentCategories')
+                    ->with('transNow', 'trans', 'parentCategories:id')
+                    ->orderBy('sort', 'ASC')
+                    ->get()
+            )
+            ->unique('id')
+            ->values();
+
+        return view('site.pages.categories.index', compact('parentCategories', 'productCategories'));
     }
 
-  
     public function categoryProducts($slug)
     {
-        $translation = ProductCategoryTranslation::where('slug', $slug)->first();
+        $category = ProductCategory::findBySlug($slug);
 
-        if (!$translation) {
-            $category = ProductCategory::active()->find($slug);
-        } else {
-            $category = ProductCategory::active()->find($translation->product_category_id);
-        }
-
-        if (!$category) {
+        if (! $category) {
             abort(404);
         }
 
@@ -49,7 +60,7 @@ class CategoryController extends Controller
 
         $query = $category->products()
             ->where('products.status', 1)
-            ->with('transNow');
+            ->with('transNow', 'trans');
 
         if (request('search')) {
             $search = '%' . request('search') . '%';
@@ -62,23 +73,16 @@ class CategoryController extends Controller
             });
         }
 
-        $products = $query->orderBy('sort', 'ASC')->paginate(12);
+        $products = $query->orderBy('products.sort', 'ASC')->paginate(12);
 
         return view('site.pages.categories.products', compact('category', 'products'));
     }
 
-    
     public function parentCategories($slug)
     {
-        $translation = ParentCategoryTranslation::where('slug', $slug)->first();
+        $parentCategory = ParentCategory::findBySlug($slug);
 
-        if (!$translation) {
-            $parentCategory = ParentCategory::active()->find($slug);
-        } else {
-            $parentCategory = ParentCategory::active()->find($translation->parent_category_id);
-        }
-
-        if (!$parentCategory) {
+        if (! $parentCategory) {
             abort(404);
         }
 
@@ -89,7 +93,7 @@ class CategoryController extends Controller
 
         $query = $parentCategory->productCategories()
             ->where('product_categories.status', 1)
-            ->with('transNow');
+            ->with('transNow', 'trans');
 
         if (request('search')) {
             $search = '%' . request('search') . '%';
@@ -99,7 +103,7 @@ class CategoryController extends Controller
             });
         }
 
-        $categories = $query->orderBy('sort', 'ASC')->paginate(12);
+        $categories = $query->orderBy('product_categories.sort', 'ASC')->paginate(12);
 
         return view('site.pages.categories.parent-categories', compact('parentCategory', 'categories'));
     }

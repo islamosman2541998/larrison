@@ -212,7 +212,8 @@ class ProductCategoryController extends Controller
         }
 
         $this->deleteImage($ProductCategory, 'image');
-        // $ProductCategory->trans()->delete();
+        // Translations and pivot rows are cleaned up by the model's `deleting`
+        // hook, so a reused slug can never resolve to a dead row.
         $ProductCategory->delete();
 
         if ($ProductCategory->galleryGroup && $ProductCategory->galleryGroup->images && $ProductCategory->galleryGroup->images()->count()) {
@@ -306,14 +307,14 @@ class ProductCategoryController extends Controller
             session()->flash('success', trans('pages.status_changed_sucessfully'));
         }
         if ($request['delete_all'] == 1) {
-            $products = ProductCategory::findMany($request['record']);
-            foreach ($products as $product) {
-                if ($product->path() . $product->image) {
-                    $img = $this->deleteImage($product, 'image');
-
-                    @unlink($product->path() . $product->image);
-                    $product->delete();
+            $categories = ProductCategory::findMany($request['record']);
+            foreach ($categories as $category) {
+                if ($category->products()->count() > 0) {
+                    continue;
                 }
+
+                $this->deleteImage($category, 'image');
+                $category->delete();
             }
             session()->flash('success', trans('pages.delete_all_sucessfully'));
         }

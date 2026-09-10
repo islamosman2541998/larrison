@@ -26,12 +26,15 @@ if (!function_exists('slug')) {
         if (is_null($value)) {
             return "";
         }
-        $value = trim($value, " ");
-        $value = mb_strtolower($value, "UTF-8");;
-        $value = preg_replace('/\s+/', ' ', $value);
-        $value = str_replace("/", '-', $value);
-        $value = str_replace(" ", '-', $value);
-        return $value;
+        $value = mb_strtolower(trim($value), "UTF-8");
+
+        // Anything that would have to be percent-encoded (or that breaks the
+        // URL outright, such as ? # &) must not end up inside a path segment.
+        $value = preg_replace('~[\s/\\_]+~u', '-', $value);
+        $value = preg_replace('~[^\p{L}\p{N}.-]+~u', '', $value);
+        $value = preg_replace('~-{2,}~', '-', $value);
+
+        return trim($value, '-.');
     }
 }
 

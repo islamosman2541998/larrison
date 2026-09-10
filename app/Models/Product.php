@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\FindableBySlug;
+use App\Traits\HasTranslationFallback;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +14,7 @@ use App\Models\ProductCategory;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, FindableBySlug, HasTranslationFallback;
 
     protected $fillable = [
         'image',
@@ -235,7 +237,7 @@ class Product extends Model
         if (file_exists(public_path() . $this->path() . $this->image) && $this->image) {
             $path = $this->path() . $this->image;
         } else {
-            $path = '/attachments/no_image/no_image.png';
+            $path = no_image_path();
         }
         return $path;
     }

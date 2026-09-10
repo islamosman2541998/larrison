@@ -19,7 +19,7 @@
 
         <!-- Search -->
         <div class="products-search-bar text-center mb-5">
-            <form method="GET" action="{{ route('site.parent.categories', $parentCategory->transNow?->slug ?? $parentCategory->id) }}" class="products-search-wrap mx-auto">
+            <form method="GET" action="{{ route('site.parent.categories', $parentCategory->routeSlug()) }}" class="products-search-wrap mx-auto">
                 <input
                     type="text"
                     name="search"
@@ -49,7 +49,7 @@
                             <p>{{ Str::limit(strip_tags($subCat->transNow?->description), 80) }}</p>
 
                             <div class="product-page-bottom">
-                                <a href="{{ route('site.category.products', $subCat->transNow?->slug ?? $subCat->id) }}" class="product-page-btn">
+                                <a href="{{ route('site.category.products', $subCat->routeSlug()) }}" class="product-page-btn">
                                     {{ __('site.view_products') }}
                                 </a>
                             </div>

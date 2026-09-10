@@ -27,8 +27,8 @@
                            <h4 class="text-white mb-4">Our categories</h4>
                            <div class="d-flex flex-column justify-content-start">
                              @forelse ($our_categories as $category)
-                               <a class="text-white mb-2" href="{{ route('site.products.index', $category->slug) }}">
-                                   {{ $category->trans->where('locale', app()->getLocale())->first()->title ?? 'No Title' }}
+                               <a class="text-white mb-2" href="{{ route('site.category.products', $category->routeSlug()) }}">
+                                   {{ $category->transNow?->title ?? 'No Title' }}
                                </a>
                              @empty
                                <p>No categories available</p>

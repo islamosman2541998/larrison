@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductTranslation;
+use App\Models\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -12,17 +12,22 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::active()
-            ->with('transNow', 'categories.transNow')
+            ->with('transNow', 'trans', 'categories.transNow')
             ->orderBy('sort', 'ASC')
             ->paginate(12);
 
-        return view('site.pages.products.index', compact('products'));
+        // The view delegates the listing to the livewire component, which needs
+        // the category chips.
+        $categories = ProductCategory::active()
+            ->with('transNow', 'trans')
+            ->orderBy('sort', 'ASC')
+            ->get();
+
+        return view('site.pages.products.index', compact('products', 'categories'));
     }
 
     public function show($slug)
     {
-        $translation = ProductTranslation::where('slug', $slug)->first();
-
         $relations = [
             'transNow',
             'trans',
@@ -34,19 +39,13 @@ class ProductController extends Controller
             },
         ];
 
-        if ($translation) {
-            $product = Product::active()
-                ->with($relations)
-                ->find($translation->product_id);
-        } else {
-            $product = Product::active()
-                ->with($relations)
-                ->find($slug);
-        }
+        $product = Product::findBySlug($slug);
 
         if (!$product) {
             abort(404);
         }
+
+        $product->load($relations);
 
         $currentSlug = $product->transNow?->slug;
 

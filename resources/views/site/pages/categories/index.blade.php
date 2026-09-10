@@ -32,9 +32,9 @@
         <!-- Cards (Product Categories) -->
         <div class="row g-4" id="categoryCards">
 
-            @foreach($parentCategories as $parent)
-                @foreach($parent->productCategories as $subCat)
-                    <div class="col-12 pt-3 col-sm-6 col-lg-4 category-item" data-category="parent-{{ $parent->id }}">
+            @foreach($productCategories as $subCat)
+                    <div class="col-12 pt-3 col-sm-6 col-lg-4 category-item"
+                         data-parents="{{ $subCat->parentCategories->pluck('id')->map(fn ($id) => 'parent-' . $id)->implode(' ') }}">
                         <div class="category-card-clean">
                             <div class="category-card-clean__img">
                                 <img src="{{ asset($subCat->pathInView()) }}" alt="{{ $subCat->transNow?->title }}">
@@ -47,13 +47,12 @@
                                         @endif
                                     </div>
                                 <p>{{ Str::limit(strip_tags($subCat->transNow?->description), 80) }}</p>
-                                <a href="{{ route('site.category.products', $subCat->transNow?->slug ?? $subCat->id) }}" class="category-card-link">
+                                <a href="{{ route('site.category.products', $subCat->routeSlug()) }}" class="category-card-link">
                                     {{ __('site.view_products') }} →
                                 </a>
                             </div>
                         </div>
                     </div>
-                @endforeach
             @endforeach
 
         </div>
@@ -89,11 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchVal = searchInput.value.toLowerCase().trim();
 
         cards.forEach(function (card) {
-            const cardCategory = card.getAttribute('data-category');
+            const cardParents = (card.getAttribute('data-parents') || '').split(' ').filter(Boolean);
             const cardTitle = card.querySelector('h3').textContent.toLowerCase();
             const cardDesc = card.querySelector('p').textContent.toLowerCase();
 
-            const matchesTab = (activeTab === 'all') || (cardCategory === activeTab);
+            const matchesTab = (activeTab === 'all') || cardParents.includes(activeTab);
             const matchesSearch = !searchVal || cardTitle.includes(searchVal) || cardDesc.includes(searchVal);
 
             card.style.display = (matchesTab && matchesSearch) ? '' : 'none';
