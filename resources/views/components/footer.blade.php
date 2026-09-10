@@ -37,7 +37,7 @@
                           
                        </div>
                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-3" data-animate="animate__backInLeft">
-                           <h4 class="text-white mb-4">@lang('home.get_in_touch')</h4>
+                           <h4 class="text-white mb-4">Contact Us</h4>
                            <div class="d-flex mb-2">
                                <i class="bi bi-geo-alt text-white me-2"></i>
                                <p class="text-white mb-0">{{ $settings->getItem('address') }}</p>
