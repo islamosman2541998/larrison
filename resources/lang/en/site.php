@@ -86,6 +86,8 @@ return [
     'enter_phone' => 'Enter Your Phone',
     'love_to_hear' => 'We’d love to hear from you',
     'contact_side_desc' => 'Whether you have a question about features, trials, pricing, need a demo, or anything else, our team is ready to answer all your questions.',
+    'explore_products' => 'Explore Products',
+    'explore_categories' => 'Explore Categories',
 
     
 ];
