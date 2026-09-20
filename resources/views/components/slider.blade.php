@@ -40,8 +40,6 @@
         </div>
     </div>
 </section>
-
-</header>
 <style>
     .hero-slide {
         position: relative;
@@ -71,8 +69,4 @@
         z-index: 2;
     }
 
-    .container-custom {
-        /* padding-top: 104px !important; */
-
-    }
 </style>

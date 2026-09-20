@@ -4,8 +4,37 @@ const burger = document.getElementById("navBurger");
 const links = document.getElementById("navLinks");
 
 if (burger && links) {
+  const closeMenu = () => {
+    links.classList.remove("open");
+    burger.classList.remove("is-active");
+    burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-label", "Open menu");
+  };
+
   burger.addEventListener("click", () => {
-    links.classList.toggle("open");
+    const isOpen = links.classList.toggle("open");
+    burger.classList.toggle("is-active", isOpen);
+    burger.setAttribute("aria-expanded", String(isOpen));
+    burger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  });
+
+  links.addEventListener("click", (event) => {
+    if (event.target.closest("a:not(.dropdown-toggle)") && window.innerWidth <= 992) closeMenu();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!links.contains(event.target) && !burger.contains(event.target)) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && links.classList.contains("open")) {
+      closeMenu();
+      burger.focus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 992) closeMenu();
   });
 }
 

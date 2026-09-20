@@ -9,7 +9,7 @@
                 <a class="brand" href="{{ route('site.home') }}">
                     <img class="logoImg"
                         src="{{ asset($settings->getItem(app()->getLocale() == 'en' ? 'logo_en' : 'logo_ar')) }}"
-                        alt="Logo">
+                        alt="{{ $settings->getItem('site_name') ?? 'Larrison' }}">
                 </a>
 
                 <ul class="nav-links" id="navLinks">
@@ -49,7 +49,8 @@
                         @endforeach
                     </div>
 
-                    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+                    <button class="nav-burger" id="navBurger" type="button" aria-label="Open menu"
+                        aria-controls="navLinks" aria-expanded="false">
                         <span></span><span></span><span></span>
                     </button>
                 </div>
@@ -57,13 +58,4 @@
             </nav>
         </div>
     </div>
-
-    <style>
-      .site-header {
-    background: transparent;
-}
-
-.site-header.nav-solid .nav-wrap {
-    background: #263E4E !important;
-}
-    </style>
+</header>
