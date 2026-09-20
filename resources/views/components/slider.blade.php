@@ -19,8 +19,22 @@
                             <p class="text-white">{!! $slide->description !!}</p>
                             <div class="hero-cta">
                                 <a href="{{ route('site.about-us') }}"
-                                    class="btn-custom btn-primary-custom btn-sm">@lang('about.about_us')</a>
-                                <a href="#" class="btn-custom btn-outline-custom btn-sm">@lang('products.view_products')</a>
+                                    class="btn-custom btn-primary-custom btn-sm hero-cta__button hero-cta__button--primary">
+                                    <span>@lang('about.about_us')</span>
+                                    <svg class="hero-cta__icon hero-cta__arrow" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M5 12h14M13 6l6 6-6 6" />
+                                    </svg>
+                                </a>
+                                <a href="#"
+                                    class="btn-custom btn-outline-custom btn-sm hero-cta__button hero-cta__button--secondary">
+                                    <svg class="hero-cta__icon" viewBox="0 0 24 24" aria-hidden="true">
+                                        <rect x="4" y="4" width="6" height="6" rx="1" />
+                                        <rect x="14" y="4" width="6" height="6" rx="1" />
+                                        <rect x="4" y="14" width="6" height="6" rx="1" />
+                                        <rect x="14" y="14" width="6" height="6" rx="1" />
+                                    </svg>
+                                    <span>@lang('products.view_products')</span>
+                                </a>
                             </div>
                         </div>
                     </div>
