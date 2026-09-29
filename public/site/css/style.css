@@ -2551,3 +2551,120 @@ display:block;
 .product-page-bottom{
   margin-top: auto;
 }
+/* ==========================================================================
+   Partners carousel (home)
+   Replaces the old fixed-width marquee, which assumed ~10 duplicated logos
+   and left the strip mostly empty with a small number of partners.
+   ========================================================================== */
+
+.partners-section{
+  padding: 70px 0;
+  background: #fff;
+}
+
+.partners-head{
+  margin-bottom: 38px;
+}
+
+.partners-title{
+  font-size: clamp(26px, 3vw, 36px);
+  color: var(--main);
+  margin: 0;
+}
+
+.partners-slider{
+  position: relative;
+  padding-inline: 56px;
+}
+
+.partners-swiper{
+  overflow: hidden;
+}
+
+.partner-card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(49,70,87,0.10);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.partner-card:hover{
+  transform: translateY(-6px);
+  border-color: rgba(144,212,221,0.55);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+}
+
+.partner-card img{
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: .75;
+  transition: var(--transition);
+}
+
+.partner-card:hover img{
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* arrows */
+.partners-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(49,70,87,0.12);
+  background: #fff;
+  color: var(--main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: var(--transition);
+}
+
+.partners-arrow:hover{
+  background: var(--main);
+  color: #fff;
+  border-color: var(--main);
+}
+
+.partners-arrow svg{
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.partners-prev{ inset-inline-start: 0; }
+.partners-next{ inset-inline-end: 0; }
+
+.partners-arrow.swiper-button-disabled{
+  opacity: .35;
+  pointer-events: none;
+}
+
+@media (max-width: 575.98px){
+  .partners-section{ padding: 50px 0; }
+  .partners-slider{ padding-inline: 44px; }
+  .partner-card{ height: 130px; padding: 16px; }
+  .partners-arrow{ width: 38px; height: 38px; }
+}
+/* chevrons must point outward in RTL too */
+[dir="rtl"] .partners-arrow svg{
+  transform: scaleX(-1);
+}

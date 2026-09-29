@@ -33,7 +33,7 @@ class HomeController extends Controller
             $about_us->transNow = new AboutTranslation();
         }
         $blogs = Blog::with('translations')->feature()->active()->orderBy('sort', 'ASC')->get();
-        $partners = Partner::with('translations')->where('status', 1)->get();
+        $partners = Partner::with('translations')->where('status', 1)->orderBy('sort', 'ASC')->get();
         $news = News::with('translations')->where('status', 1)->take(3)->get();
         $faq_questions = Faq::with('translations')->where('status', 1)->get();
 

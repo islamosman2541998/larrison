@@ -222,3 +222,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
   filterCards();
 });
+
+
+// Partners carousel
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector("#partnersSection");
+  if (!section) return;
+
+  const swiperEl = section.querySelector(".partners-swiper");
+  if (!swiperEl) return;
+
+  const wrapper = swiperEl.querySelector(".swiper-wrapper");
+  const maxPerView = 3;
+
+  // Swiper needs roughly twice the visible slides to loop smoothly. With only
+  // a handful of partners we clone the set until there are enough, so the
+  // carousel keeps rotating no matter how many partners exist.
+  const originals = Array.from(wrapper.children);
+  const realCount = originals.length;
+
+  if (realCount > 1) {
+    while (wrapper.children.length < maxPerView * 2 + 1) {
+      originals.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        wrapper.appendChild(clone);
+      });
+    }
+  }
+
+  const canLoop = realCount > 1;
+
+  new Swiper(swiperEl, {
+    loop: canLoop,
+    speed: 700,
+    spaceBetween: 24,
+    grabCursor: canLoop,
+    allowTouchMove: canLoop,
+    centeredSlides: false,
+    watchSlidesProgress: true,
+    autoplay: canLoop
+      ? { delay: 2800, disableOnInteraction: false, pauseOnMouseEnter: true }
+      : false,
+    navigation: {
+      nextEl: section.querySelector(".partners-next"),
+      prevEl: section.querySelector(".partners-prev"),
+    },
+    breakpoints: {
+      0:   { slidesPerView: 1, spaceBetween: 16 },
+      576: { slidesPerView: 2, spaceBetween: 20 },
+      992: { slidesPerView: Math.min(maxPerView, Math.max(realCount, 1)) },
+    },
+  });
+
+  if (!canLoop) {
+    section.querySelectorAll(".partners-arrow").forEach(btn => btn.remove());
+  }
+});

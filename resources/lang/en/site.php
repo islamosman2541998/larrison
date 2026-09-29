@@ -91,4 +91,5 @@ return [
 
     
     'browse_products'   => 'Browse our full catalogue of products',
+    'no_partners'       => 'No partners yet',
 ];

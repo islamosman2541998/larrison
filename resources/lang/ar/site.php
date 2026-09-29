@@ -95,4 +95,5 @@ return [
     
 
     'browse_products'   => 'تصفح كل منتجاتنا',
+    'no_partners'       => 'لا يوجد شركاء حاليًا',
 ];
