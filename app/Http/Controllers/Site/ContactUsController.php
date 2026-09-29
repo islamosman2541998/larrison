@@ -23,8 +23,8 @@ class ContactUsController extends Controller
       $data = $request->getSanitized();
 
         Contactus::create($data);
-       
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        // Editable from: Dashboard > Settings > Page sections > Contact page
+        return redirect()->back()->with('success', page_text('contact.form.success'));
     }
 }

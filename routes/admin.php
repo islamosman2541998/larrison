@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MenueController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\RateConteroller;
 use App\Http\Controllers\Admin\VideoController;
@@ -269,6 +270,13 @@ Route::group([
                 Route::post('themes/reset', [ThemesController::class, 'Themes_reset'])->name('themes.reset');
                 Route::get('themes/site', [ThemesController::class, 'siteTheme'])->name('themes.site');
                 // ----- End Themes -------------------------------------------
+
+                // ----- Page sections (editable static texts) ------------------
+                Route::get('page-sections', [PageSectionController::class, 'index'])->name('page-sections.index');
+                Route::get('page-sections/{page}', [PageSectionController::class, 'edit'])->name('page-sections.edit');
+                Route::put('page-sections/{page}', [PageSectionController::class, 'update'])->name('page-sections.update');
+                Route::get('page-sections/{page}/{section}/reset', [PageSectionController::class, 'reset'])->name('page-sections.reset');
+                // ----- End page sections --------------------------------------
 
                 // ----- SettingHome -----------------------------------------------
                 Route::resource('home-settings', HomeSettingPageController::class);

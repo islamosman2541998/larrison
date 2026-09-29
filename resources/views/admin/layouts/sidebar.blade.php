@@ -559,6 +559,14 @@
                                 </li>
                             </ul>
                         </li>
+                        {{-- Page sections --------------------------------------------------------- --}}
+                        <li>
+                            <a href="{{ route('admin.page-sections.index') }}" class="waves-effect">
+                                <i class="mdi mdi-format-text"></i>
+                                <span> @lang('admin.page_sections')</span>
+                            </a>
+                        </li>
+                        {{-- End Page sections ----------------------------------------------------- --}}
                         {{-- Themes --------------------------------------------------------------- --}}
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">

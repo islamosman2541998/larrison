@@ -587,4 +587,14 @@ return [
 'best_seller' => 'Best Seller',
 
 
+    // ----- Page sections -----------------------------------------------
+    'page_sections'             => 'Page sections',
+    'page_sections_hint'        => 'Edit the fixed texts of the site pages. Any field left empty falls back to its default text.',
+    'page_sections_edit_hint'   => 'Fill in each language. An empty field shows the default text written in grey inside the input.',
+    'page_sections_count'       => ':sections blocks - :fields texts',
+    'edit_texts'                => 'Edit texts',
+    'view_page'                 => 'View page',
+    'default_value'             => 'Default',
+    'reset_to_default'          => 'Reset to default',
+    'reset_section_confirm'     => 'Reset this block to its default texts?',
 ];

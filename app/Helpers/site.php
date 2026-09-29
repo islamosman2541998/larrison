@@ -55,3 +55,27 @@ if (!function_exists('no_image_path')) {
         return '/images/no-image.svg';
     }
 }
+
+
+if (!function_exists('page_text')) {
+    /**
+     * Editable static text of a page section, managed from
+     * Dashboard > Settings > Page sections.
+     *
+     * Usage: page_text('contact.side.title')
+     *
+     * Falls back to the active locale's stored value, then the fallback
+     * locale, then the default declared in config/page_sections.php.
+     */
+    function page_text(string $path, ?string $locale = null): string
+    {
+        [$page, $section, $field] = array_pad(explode('.', $path, 3), 3, null);
+
+        if (!$page || !$section || !$field) {
+            return '';
+        }
+
+        return \App\Support\PageSectionRepository::getInstance()
+            ->get($page, $section, $field, $locale);
+    }
+}

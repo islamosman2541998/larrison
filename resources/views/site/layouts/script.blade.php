@@ -32,5 +32,10 @@
 
 
 @stack('scripts')
+@stack('script')
+
+{{-- Page level scripts. Without this yield every @section('script') on the
+     public site was silently dropped (only the admin layout had it). --}}
+@yield('script')
 
 @livewireScripts
