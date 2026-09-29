@@ -1,33 +1,81 @@
 <div>
-    <div class="row category text-center d-flex justify-content-center">
-        <div class="faq-controls controls d-flex justify-content-center">
-            <span class="chip  {{ $selectedCategory == 0 ? 'active': '' }}" data-tag="@lang('All')" wire:click="changeCategory(0)"> @lang('All')</span>
-            @forelse ($categories as $category)
-                <span class="chip {{ $selectedCategory == $category->id ? 'active': '' }}" data-tag="{{ $category->transNow?->title }}" wire:click="changeCategory({{ $category->id }})"> {{ $category->transNow?->title }} </span>
-            @empty
-            @endforelse
+
+    {{-- Search --}}
+    <div class="products-search-bar text-center mb-4">
+        <div class="products-search-wrap mx-auto">
+            <input type="text"
+                   wire:model.debounce.400ms="search"
+                   class="form-control products-search-input"
+                   placeholder="{{ __('site.search_products') }}...">
         </div>
     </div>
 
+    {{-- Category filter --}}
+    <div class="category-tabs-wrap text-center mb-5">
+        <div class="category-tabs d-inline-flex flex-wrap justify-content-center gap-2">
+            <button type="button"
+                    class="category-tab {{ $selectedCategory == 0 ? 'active' : '' }}"
+                    wire:click="changeCategory(0)">
+                {{ __('site.all') }}
+            </button>
 
-    <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
-        @forelse ($products as $key => $product)
-            <div class="col wow bounceInUp" style="animation-delay: 0.{{ ($key + 1) }}s;">
-                <a href="{{ route('site.product.show', $product->routeSlug()) }}" class="text-decoration-none" aria-label="{{ $product->transNow?->title }}">
-                    <div class="product-card">
-                        <div class="product-media">
-                            <img src="{{ asset($product->pathInView()) }}" alt="{{ $product->transNow?->title }}">
-                        </div>
-                        <div class="product-footer">
-                            <div class="product-title">{{ $product->transNow?->title }}</div>
+            @foreach ($categories as $category)
+                <button type="button"
+                        class="category-tab {{ $selectedCategory == $category->id ? 'active' : '' }}"
+                        wire:click="changeCategory({{ $category->id }})">
+                    {{ $category->transNow?->title }}
+                </button>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- Grid --}}
+    <div class="row g-4 products-grid" wire:loading.class="products-grid--busy">
+
+        @forelse ($products as $product)
+            @php $productCategory = $product->categories->first(); @endphp
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="product-page-card h-100">
+                    <a href="{{ route('site.product.show', $product->routeSlug()) }}"
+                       class="product-page-card__img d-block"
+                       aria-label="{{ $product->transNow?->title }}">
+                        @if ($product->sale && $product->sale > 0)
+                            <span class="product-page-badge sale">-{{ $product->sale }}%</span>
+                        @endif
+                        <img src="{{ asset($product->pathInView()) }}"
+                             alt="{{ $product->transNow?->title }}" loading="lazy">
+                    </a>
+
+                    <div class="product-page-card__content">
+                        @if ($productCategory)
+                            <span class="product-page-category">{{ $productCategory->transNow?->title }}</span>
+                        @endif
+
+                        <h3 class="product-page-name">{{ $product->transNow?->title }}</h3>
+
+                        @if ($product->transNow?->description)
+                            <p>{{ Str::limit(strip_tags($product->transNow->description), 80) }}</p>
+                        @endif
+
+                        <div class="product-page-bottom">
+                            <a href="{{ route('site.product.show', $product->routeSlug()) }}"
+                               class="product-page-btn">
+                                {{ __('site.view_details') }}
+                            </a>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         @empty
-            <div class="col text-center">
-                <p>{{ __('messages.no_products') }}</p>
+            <div class="col-12">
+                <div class="products-empty text-center">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <p>{{ __('site.no_products_found') }}</p>
+                </div>
             </div>
         @endforelse
+
     </div>
+
 </div>

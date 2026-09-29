@@ -94,4 +94,5 @@ return [
     
     
 
+    'browse_products'   => 'تصفح كل منتجاتنا',
 ];

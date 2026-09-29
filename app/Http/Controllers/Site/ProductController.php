@@ -11,19 +11,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::active()
-            ->with('transNow', 'trans', 'categories.transNow')
-            ->orderBy('sort', 'ASC')
-            ->paginate(12);
-
-        // The view delegates the listing to the livewire component, which needs
-        // the category chips.
+        // The listing itself is rendered by the livewire component (it owns the
+        // category filter and the search box); this only supplies the chips.
         $categories = ProductCategory::active()
             ->with('transNow', 'trans')
             ->orderBy('sort', 'ASC')
             ->get();
 
-        return view('site.pages.products.index', compact('products', 'categories'));
+        return view('site.pages.products.index', compact('categories'));
     }
 
     public function show($slug)

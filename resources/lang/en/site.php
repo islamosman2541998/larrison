@@ -90,4 +90,5 @@ return [
     'explore_categories' => 'Explore Categories',
 
     
+    'browse_products'   => 'Browse our full catalogue of products',
 ];

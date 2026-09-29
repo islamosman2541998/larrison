@@ -25,7 +25,7 @@
                                         <path d="M5 12h14M13 6l6 6-6 6" />
                                     </svg>
                                 </a>
-                                <a href="#"
+                                <a href="{{ route('site.products.index') }}"
                                     class="btn-custom btn-outline-custom btn-sm hero-cta__button hero-cta__button--secondary">
                                     <svg class="hero-cta__icon" viewBox="0 0 24 24" aria-hidden="true">
                                         <rect x="4" y="4" width="6" height="6" rx="1" />
