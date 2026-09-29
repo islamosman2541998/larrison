@@ -64,7 +64,7 @@
     <link rel="stylesheet" href="{{ asset('site/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.11') }}" />
+    <link rel="stylesheet" href="{{ asset_v('site/css/style.css') }}" />
 
 
 

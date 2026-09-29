@@ -27,8 +27,8 @@
 <link rel="stylesheet" href="{{ asset('site/css/swiper.min.css') }}" />
 {{-- <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" /> --}}
 
-<script src="{{ asset('site/js/custom.js') }} "></script>
-<script src="{{ asset('site/js/main.js') }} "></script>
+<script src="{{ asset_v('site/js/custom.js') }}"></script>
+<script src="{{ asset_v('site/js/main.js') }}"></script>
 
 
 @stack('scripts')

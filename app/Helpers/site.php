@@ -79,3 +79,23 @@ if (!function_exists('page_text')) {
             ->get($page, $section, $field, $locale);
     }
 }
+
+
+if (!function_exists('asset_v')) {
+    /**
+     * Asset URL with an automatic cache-busting version.
+     *
+     * The version is the file's last-modified time, so every deploy that
+     * actually changes a file also changes its URL. A hand written
+     * ?v=0.0.11 (or no version at all, as main.js had) leaves visitors on a
+     * stale copy after a release, which looks exactly like the change never
+     * happened.
+     */
+    function asset_v(string $path): string
+    {
+        $full = public_path($path);
+        $version = is_file($full) ? filemtime($full) : null;
+
+        return asset($path) . ($version ? '?v=' . $version : '');
+    }
+}
