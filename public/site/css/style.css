@@ -2441,3 +2441,113 @@ display:block;
   .product-page-card__img{ height: 200px; }
   .category-tab{ padding: 10px 16px; font-size: 14px; }
 }
+/* ---- loading skeleton + pagination (products listing) ------------------- */
+
+.product-skeleton{
+  background: #fff;
+  border-radius: 22px;
+  border: 1px solid rgba(49,70,87,0.10);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+  padding: 0 0 18px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.product-skeleton__img{
+  height: 240px;
+}
+
+.product-skeleton__line{
+  height: 14px;
+  border-radius: 8px;
+  margin: 14px 18px 0;
+}
+
+.product-skeleton__line--sm{ width: 38%; height: 22px; border-radius: 999px; }
+.product-skeleton__line--btn{ width: 45%; height: 38px; border-radius: 999px; margin-top: 18px; }
+
+.product-skeleton__img,
+.product-skeleton__line{
+  background: linear-gradient(90deg, #eef4f5 25%, #f7fbfc 50%, #eef4f5 75%);
+  background-size: 400% 100%;
+  animation: product-skeleton-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes product-skeleton-shimmer{
+  0%{ background-position: 100% 0; }
+  100%{ background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .product-skeleton__img,
+  .product-skeleton__line{ animation: none; }
+}
+
+.products-pagination .pagination{
+  gap: 8px;
+  margin: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.products-pagination .page-link{
+  min-width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(49,70,87,0.12);
+  background: #f5fafb;
+  color: var(--main);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.products-pagination .page-link:hover{
+  background: rgba(144,212,221,0.18);
+  border-color: rgba(144,212,221,0.45);
+  color: var(--main);
+}
+
+.products-pagination .page-item.active .page-link{
+  background: var(--main);
+  border-color: var(--main);
+  color: #fff;
+}
+
+.products-pagination .page-item.disabled .page-link{
+  opacity: .45;
+}
+
+.category-tab:disabled{
+  opacity: .6;
+  cursor: progress;
+}
+/* ---- equal-height product cards (listing + category pages) ------------- */
+
+.product-page-card{
+  display: flex;
+  flex-direction: column;
+}
+
+.product-page-card__img{
+  flex: 0 0 auto;
+}
+
+.product-page-card__content{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.product-page-card__content p{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-page-bottom{
+  margin-top: auto;
+}

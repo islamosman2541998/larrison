@@ -11,14 +11,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        // The listing itself is rendered by the livewire component (it owns the
-        // category filter and the search box); this only supplies the chips.
-        $categories = ProductCategory::active()
-            ->with('transNow', 'trans')
-            ->orderBy('sort', 'ASC')
-            ->get();
-
-        return view('site.pages.products.index', compact('categories'));
+        // The livewire component owns the whole listing: chips, search,
+        // pagination and the queries behind them.
+        return view('site.pages.products.index');
     }
 
     public function show($slug)

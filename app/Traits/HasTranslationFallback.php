@@ -10,11 +10,19 @@ namespace App\Traits;
  * translation) renders as a blank card with an id-based URL. This accessor
  * leaves the relation itself untouched — eager loading still works — and only
  * steps in when the active-locale translation is missing or empty.
+ *
+ * Performance: an already eager-loaded `trans` collection is used first, so
+ * `with('trans')` alone is enough to serve a whole listing without a single
+ * extra query. Lazy loading only happens when nothing was eager-loaded.
  */
 trait HasTranslationFallback
 {
     public function getTransNowAttribute()
     {
+        if ($this->relationLoaded('trans')) {
+            return $this->pickTranslation($this->getRelation('trans'));
+        }
+
         if (! $this->relationLoaded('transNow')) {
             $this->load('transNow');
         }
@@ -25,16 +33,29 @@ trait HasTranslationFallback
             return $translation;
         }
 
-        if (! $this->relationLoaded('trans')) {
-            $this->load('trans');
+        $this->load('trans');
+
+        return $this->pickTranslation($this->getRelation('trans')) ?? $translation;
+    }
+
+    /**
+     * Active locale, then the fallback locale, then anything usable.
+     */
+    protected function pickTranslation($translations)
+    {
+        $locale   = app()->getLocale();
+        $fallback = config('app.fallback_locale');
+
+        $current = $translations->firstWhere('locale', $locale);
+
+        if ($this->isUsableTranslation($current)) {
+            return $current;
         }
 
-        $usable = $this->getRelation('trans')
-            ->first(fn ($row) => $row->locale === config('app.fallback_locale')
-                && $this->isUsableTranslation($row))
-            ?? $this->getRelation('trans')->first(fn ($row) => $this->isUsableTranslation($row));
+        $usable = $translations->first(fn ($row) => $row->locale === $fallback && $this->isUsableTranslation($row))
+            ?? $translations->first(fn ($row) => $this->isUsableTranslation($row));
 
-        return $usable ?? $translation;
+        return $usable ?? $current;
     }
 
     protected function isUsableTranslation($translation): bool

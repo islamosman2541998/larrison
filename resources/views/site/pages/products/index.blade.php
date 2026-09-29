@@ -16,7 +16,7 @@
             <p class="products-page-subtitle">{{ __('site.browse_products') }}</p>
         </div>
 
-        @livewire('site.products.index', ['categories' => $categories])
+        @livewire('site.products.index')
 
     </div>
 </section>

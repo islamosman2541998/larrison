@@ -4,7 +4,7 @@
     <div class="products-search-bar text-center mb-4">
         <div class="products-search-wrap mx-auto">
             <input type="text"
-                   wire:model.debounce.400ms="search"
+                   wire:model.debounce.500ms="search"
                    class="form-control products-search-input"
                    placeholder="{{ __('site.search_products') }}...">
         </div>
@@ -15,27 +15,45 @@
         <div class="category-tabs d-inline-flex flex-wrap justify-content-center gap-2">
             <button type="button"
                     class="category-tab {{ $selectedCategory == 0 ? 'active' : '' }}"
-                    wire:click="changeCategory(0)">
+                    wire:click="changeCategory(0)"
+                    wire:loading.attr="disabled">
                 {{ __('site.all') }}
             </button>
 
             @foreach ($categories as $category)
                 <button type="button"
                         class="category-tab {{ $selectedCategory == $category->id ? 'active' : '' }}"
-                        wire:click="changeCategory({{ $category->id }})">
+                        wire:click="changeCategory({{ $category->id }})"
+                        wire:loading.attr="disabled">
                     {{ $category->transNow?->title }}
                 </button>
             @endforeach
         </div>
     </div>
 
+    {{-- Skeleton shown only while a request is in flight --}}
+    <div class="row g-4" wire:loading.delay.shortest wire:target="changeCategory, search, gotoPage, nextPage, previousPage">
+        @for ($i = 0; $i < 8; $i++)
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="product-skeleton">
+                    <div class="product-skeleton__img"></div>
+                    <div class="product-skeleton__line product-skeleton__line--sm"></div>
+                    <div class="product-skeleton__line"></div>
+                    <div class="product-skeleton__line product-skeleton__line--btn"></div>
+                </div>
+            </div>
+        @endfor
+    </div>
+
     {{-- Grid --}}
-    <div class="row g-4 products-grid" wire:loading.class="products-grid--busy">
+    <div class="row g-4 products-grid"
+         wire:loading.remove
+         wire:target="changeCategory, search, gotoPage, nextPage, previousPage">
 
         @forelse ($products as $product)
             @php $productCategory = $product->categories->first(); @endphp
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3" wire:key="product-{{ $product->id }}">
                 <div class="product-page-card h-100">
                     <a href="{{ route('site.product.show', $product->routeSlug()) }}"
                        class="product-page-card__img d-block"
@@ -44,7 +62,7 @@
                             <span class="product-page-badge sale">-{{ $product->sale }}%</span>
                         @endif
                         <img src="{{ asset($product->pathInView()) }}"
-                             alt="{{ $product->transNow?->title }}" loading="lazy">
+                             alt="{{ $product->transNow?->title }}" loading="lazy" decoding="async">
                     </a>
 
                     <div class="product-page-card__content">
@@ -77,5 +95,12 @@
         @endforelse
 
     </div>
+
+    {{-- Pagination --}}
+    @if ($products->hasPages())
+        <div class="products-pagination mt-5 d-flex justify-content-center">
+            {{ $products->links() }}
+        </div>
+    @endif
 
 </div>
