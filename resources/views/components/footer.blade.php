@@ -50,14 +50,14 @@
                                <i class="bi bi-telephone text-white me-2"></i>
                                <p class="text-white mb-0">{{ $settings->getItem('mobile') }}</p>
                            </div>
-                           <div class="d-flex mt-4">
-                               <a class="btn btn-secondary btn-square rounded-circle me-2 footericn" href="{{ $settings->getItem('twitter') }}" target="_blank"><i
+                           <div class="mt-4 footer-social">
+                               <a class="btn btn-secondary rounded-circle footericn" href="{{ $settings->getItem('twitter') }}" target="_blank"><i
                                        class="fab fa-twitter"></i></a>
-                               <a class="btn btn-secondary btn-square rounded-circle me-2 footericn" href="{{ $settings->getItem('facebook') }}" target="_blank"><i
+                               <a class="btn btn-secondary rounded-circle footericn" href="{{ $settings->getItem('facebook') }}" target="_blank"><i
                                        class="fab fa-facebook-f"></i></a>
-                               <a class="btn btn-secondary btn-square rounded-circle me-2 footericn" href="{{ $settings->getItem('linkedin') }}" target="_blank"><i
+                               <a class="btn btn-secondary rounded-circle footericn" href="{{ $settings->getItem('linkedin') }}" target="_blank"><i
                                        class="fab fa-linkedin-in"></i></a>
-                               <a class="btn btn-secondary btn-square rounded-circle footericn" href="{{ $settings->getItem('instagram') }}" target="_blank"><i
+                               <a class="btn btn-secondary rounded-circle footericn" href="{{ $settings->getItem('instagram') }}" target="_blank"><i
                                        class="fab fa-instagram"></i></a>
                            </div>
                        </div>

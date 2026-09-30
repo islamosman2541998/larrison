@@ -1164,10 +1164,49 @@ display:block;
     display: flex;
     flex-direction: row-reverse;
 }
- .footericn{
+ /* Footer social buttons.
+    They used to rely on `.btn-square`, a class the template never defines, so
+    their size came from Bootstrap's button padding: uneven ellipses squeezed
+    against each other.
+
+    The gap is set here rather than with a `gap-*` utility because the English
+    pages load Bootstrap 4.5, which has no gap (or `me-*`) utilities — only the
+    Arabic pages get Bootstrap 5 layered on top. Utility spacing classes are
+    therefore unreliable on this site. */
+.footer-social{
+  display: flex;
+  flex-wrap: wrap;
+  /* 4 x 40px + 3 x 12px = 196px, which still fits the narrower Arabic footer
+     column (209px) without the last icon dropping to a second row. */
+  gap: 12px;
+}
+
+.footericn{
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  border: 0;
   background-color: var(--primary);
-  color:white;
- }
+  color: #fff;
+  transition: var(--transition);
+}
+
+.footericn:hover,
+.footericn:focus-visible{
+  background-color: #fff;
+  color: var(--main);
+  transform: translateY(-3px);
+}
+
+.footericn i{
+  line-height: 1;
+}
  /* category page */
  .category-page{
   background: #fff;
@@ -1208,7 +1247,12 @@ display:block;
 
 /* tabs */
 .category-tabs{
-  row-gap: 12px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Explicit, because `gap-2` does not exist in the Bootstrap 4.5 build the
+     English pages load. */
+  gap: 12px;
 }
 
 .category-tab{
