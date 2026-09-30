@@ -2605,14 +2605,11 @@ display:block;
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: .75;
   transition: var(--transition);
 }
 
 .partner-card:hover img{
-  filter: grayscale(0);
-  opacity: 1;
+  transform: scale(1.04);
 }
 
 /* arrows */
