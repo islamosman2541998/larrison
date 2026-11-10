@@ -7,7 +7,11 @@
 
 @section('content')
 
-
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.blogs')],
+        ],
+    ])
 
 
     <section class="category-page py-5 " id="category-page">

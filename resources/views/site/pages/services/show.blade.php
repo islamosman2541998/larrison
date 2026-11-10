@@ -5,23 +5,13 @@
 @section('meta_description', @$service->trans->where('locale', $current_lang)->first()->meta_description) --}}
 
 @section('content')
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>{{ $category->transNow->title ?? '' }}</h2>
-                        <div class="breadcrumb__links">
-                            <a href="{{ route('site.home') }}">@lang('services.home')</a>
-                            <span>{{ $category->transNow->title ?? '' }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.services'), 'url' => route('site.services.index')],
+            ['label' => $category->transNow?->title],
+        ],
+    ])
+
     <!-- Digital Marketing Content -->
     <section class="services-soft">
         <div class="wrap">

@@ -6,27 +6,16 @@
 
 
 @section('content')
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>@lang('blogs.blogs')</h2>
-                        <div class="breadcrumb__links">
-                            <a href="{{ route('site.home') }}"> @lang('site.home') /</a>
-                            <span>@lang('blogs.blogs')</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.blogs'), 'url' => route('site.site.blogs.index')],
+            ['label' => $blog->transNow?->title],
+        ],
+    ])
 
     <!-- Blog Section Begin -->
   <div class="container">
-      <h1 class="text-white theH1 mt-4">{{ @$blog->transNow->title }}</h1>
+      <h1 class="text-dark theH1 mt-5">{{ @$blog->transNow->title }}</h1>
     </div>
 
   <main class="container">
@@ -40,13 +29,3 @@
     <!-- Blog Section End -->
 
 @endsection
-<style>
-    .blog-page{
-        margin-top: 140px;
-    }
-</style>
-<style>
-    .hero{
-        margin-top: 70px !important;
-    }
-</style>

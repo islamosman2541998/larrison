@@ -6,6 +6,13 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('site.our_categories'), 'url' => route('site.categories.index')],
+        ['label' => $parentCategory->transNow?->title],
+    ],
+])
+
 <section class="products-page py-5" id="products-page">
     <div class="container">
 

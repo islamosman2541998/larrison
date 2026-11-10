@@ -4,6 +4,12 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('site.our_categories')],
+    ],
+])
+
 <section class="category-page py-5" id="category-page">
     <div class="container">
 

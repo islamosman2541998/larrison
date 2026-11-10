@@ -1,6 +1,13 @@
 @extends('site.app')
 
 @section('content')
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.jobs'), 'url' => route('site.jobs.index')],
+            ['label' => optional($job->translate(app()->getLocale()))->title ?? '—'],
+        ],
+    ])
+
     <section class="job-section hero py-5" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
         <div class="container">
             <h2 class="section-title">{{ optional($job->translate(app()->getLocale()))->title ?? '—' }}</h2>

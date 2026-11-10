@@ -6,30 +6,30 @@
 
 @section('content')
 
+    @php
+        $productBreadcrumb = [];
+
+        if ($parentCategory) {
+            $productBreadcrumb[] = [
+                'label' => $parentCategory->transNow?->title,
+                'url' => route('site.parent.categories', $parentCategory->transNow?->slug ?? $parentCategory->id),
+            ];
+        }
+
+        if ($category) {
+            $productBreadcrumb[] = [
+                'label' => $category->transNow?->title,
+                'url' => route('site.category.products', $category->transNow?->slug ?? $category->id),
+            ];
+        }
+
+        $productBreadcrumb[] = ['label' => $product->transNow?->title];
+    @endphp
+
+    @include('site.partials.breadcrumb', ['items' => $productBreadcrumb])
+
     <section class="product-details-page py-5" id="product-details-page">
         <div class="container">
-
-            <!-- Breadcrumb -->
-            <div class="product-breadcrumb mb-4">
-                <a href="{{ route('site.home') }}">{{ __('site.home') }}</a>
-                <span>/</span>
-
-                @if ($parentCategory)
-                    <a href="{{ route('site.parent.categories', $parentCategory->transNow?->slug ?? $parentCategory->id) }}">
-                        {{ $parentCategory->transNow?->title }}
-                    </a>
-                    <span>/</span>
-                @endif
-
-                @if ($category)
-                    <a href="{{ route('site.category.products', $category->transNow?->slug ?? $category->id) }}">
-                        {{ $category->transNow?->title }}
-                    </a>
-                    <span>/</span>
-                @endif
-
-                <span class="current">{{ $product->transNow?->title }}</span>
-            </div>
 
             <!-- Main Product Details -->
             <div class="row g-5 align-items-center">

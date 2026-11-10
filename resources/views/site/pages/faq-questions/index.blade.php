@@ -5,11 +5,16 @@
 @section('meta_description', @$metaSetting->where('key', 'faq_meta_description_' . $current_lang)->first()->value)
 
 @section('content')
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.faq')],
+        ],
+    ])
+
     <!-- ===== HERO ===== -->
     <section class="hero wow bounceInLeft" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
         <div class="container">
             <h1 class="color_blue">@lang('home.faq-index')</h1>
-            <p class="breadcrumb"><a href="{{ route('site.home') }}" target="_blank">@lang('home.home')</a> / @lang('home.faq')</p>
         </div>
     </section>
 
@@ -17,8 +22,3 @@
 
 
 @endsection
-<style>
-    .hero{
-        margin-top: 70px !important;
-    }
-</style>

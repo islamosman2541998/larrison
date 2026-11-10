@@ -5,6 +5,12 @@
 
 
 @section('content')
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.jobs')],
+        ],
+    ])
+
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option spad set-bg" data-setbg="img/breadcrumb-bg.jpg">
         <div class="container">

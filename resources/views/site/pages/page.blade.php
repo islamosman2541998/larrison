@@ -6,8 +6,13 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => $page->trans->where('locale', $current_lang)->first()?->title],
+    ],
+])
 
-<div class="container page my-5 pt-5 rounded" @if(app()->getLocale() =="ar") dir="rtl" @else dir="ltr" @endif>
+<div class="container page my-5 rounded" @if(app()->getLocale() =="ar") dir="rtl" @else dir="ltr" @endif>
     <div class="row py-5">
         <div class="col-lg-6 col-12 text-center  wow bounceInLeft">
             <h1 class="text-main main-color"> {{ @$page->trans->where('locale', $current_lang)->first()->title }}</h1>

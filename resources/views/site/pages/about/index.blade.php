@@ -5,7 +5,12 @@
 @section('meta_description', @$metaSetting->where('key', 'about_meta_description_' . $current_lang)->first()->value)
 
 @section('content')
-   
+
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.about_us')],
+        ],
+    ])
     
    
 

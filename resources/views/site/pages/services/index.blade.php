@@ -6,7 +6,11 @@
 
 @section('content')
 
-
+    @include('site.partials.breadcrumb', [
+        'items' => [
+            ['label' => __('site.services')],
+        ],
+    ])
 
   
       <section class="services-modern py-5" id="services-page">

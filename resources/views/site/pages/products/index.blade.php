@@ -6,6 +6,12 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('messages.Our Products')],
+    ],
+])
+
 <section class="products-page py-5" id="products-page">
     <div class="container pt-5">
 

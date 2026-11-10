@@ -9,6 +9,12 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('site.contact_us')],
+    ],
+])
+
 <section class="contact-page py-5" id="contact-page">
     <div class="container pt-5">
 

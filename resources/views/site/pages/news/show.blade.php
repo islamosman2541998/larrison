@@ -6,7 +6,14 @@
 
 
 @section('content')
-<div class="container hero blog-page pt-5 py-5" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('site.news'), 'url' => route('site.news.index')],
+        ['label' => $news->title],
+    ],
+])
+
+<div class="container py-5" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
  
     <div class="row">
@@ -27,11 +34,3 @@
     </div>
 </div>
 @endsection
-<style>
-    .blog-page{
-        margin-top: 140px;
-    }
- .hero{
-        margin-top: 70px !important;
-    }
-</style>

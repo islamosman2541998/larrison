@@ -7,6 +7,12 @@
 
 @section('content')
 
+@include('site.partials.breadcrumb', [
+    'items' => [
+        ['label' => __('site.news')],
+    ],
+])
+
 <section class="news-page pt-5 pb-5" id="news-page">
     <div class="container">
         
