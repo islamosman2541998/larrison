@@ -70,6 +70,7 @@ return [
     'request_product' => 'طلب المنتج',
     'add_to_cart' => 'أضف إلى السلة',
     'back_to_products' => 'العودة إلى المنتجات',
+    'related_products' => 'منتجات ذات صلة',
     'search_products' => 'البحث عن المنتجات',
     'search_categories' => 'البحث عن الأقسام',
     'search' => 'بحث',

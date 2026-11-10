@@ -67,6 +67,7 @@ return [
     'request_product' => 'Request Product',
     'add_to_cart' => 'Add To Cart',
     'back_to_products' => 'Back To Products',
+    'related_products' => 'Related Products',
     'search_products' => 'Search Products',
     'search_categories' => 'Search Categories',
     'search' => 'Search',
