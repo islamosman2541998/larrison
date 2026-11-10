@@ -64,6 +64,7 @@ return [
     'our_product_categories'       => 'اقسام المنتجات',
     'see_all'       => 'ابحث عن',
     'see_more'       => 'اظهار المزيد',
+    'see_less'       => 'عرض أقل',
     'discover_most_popular' => 'اكتشاف أكثر المنتجات مبيعًا',
     'best_sellers' => 'الأكثر مبيعًا',
     'availability' => 'التوفر',

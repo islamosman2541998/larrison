@@ -64,6 +64,7 @@ return [
     'our_product_categories'   => 'Our Product Categories',
     'see_all'          => 'See All',
     'see_more'          => 'See More',
+    'see_less'          => 'See Less',
     'discover_most_popular' => 'Discover Most Popular',
     'best_sellers' => 'Best Sellers',
     'availability' => 'Availability',

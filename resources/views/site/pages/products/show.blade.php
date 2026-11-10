@@ -32,7 +32,7 @@
         <div class="container">
 
             <!-- Main Product Details -->
-            <div class="row g-5 align-items-center">
+            <div class="row g-5 align-items-start">
 
                 <!-- Product Image -->
                 <!-- Product Gallery -->
@@ -112,8 +112,40 @@
                             <h6>SKU: {{ $product->code }}</h6>
                         @endif
 
-                        <div class="product-details-text">
-                            {!! $product->transNow?->description !!}
+                        @php
+                            $descriptionHtml = $product->transNow?->description ?? '';
+                            $descriptionPlain = trim(preg_replace(
+                                '/\s+/u',
+                                ' ',
+                                html_entity_decode(strip_tags($descriptionHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')
+                            ));
+                            $descriptionWords = preg_split('/\s+/u', $descriptionPlain, -1, PREG_SPLIT_NO_EMPTY);
+                            $descriptionLimit = 55;
+                            $hasMoreDescription = count($descriptionWords) > $descriptionLimit;
+                            $descriptionPreview = implode(' ', array_slice($descriptionWords, 0, $descriptionLimit));
+                        @endphp
+
+                        <div class="product-details-text" data-product-description>
+                            @if ($hasMoreDescription)
+                                <p class="product-description-preview">
+                                    {{ $descriptionPreview }}&hellip;
+                                </p>
+
+                                <div class="product-description-full" hidden>
+                                    {!! $descriptionHtml !!}
+                                </div>
+
+                                <button type="button" class="product-description-toggle"
+                                    aria-expanded="false"
+                                    data-more-text="{{ __('site.see_more') }}"
+                                    data-less-text="{{ __('site.see_less') }}">
+                                    {{ __('site.see_more') }}
+                                </button>
+                            @else
+                                <div class="product-description-full">
+                                    {!! $descriptionHtml !!}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="product-details-meta">
@@ -344,6 +376,31 @@
     .product-details-text * {
         color: #142E3F !important;
     }
+
+    .product-description-preview {
+        margin-bottom: 10px;
+        line-height: 1.9;
+    }
+
+    .product-description-toggle {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 14px;
+        border: 1px solid rgba(20, 46, 63, 0.12);
+        border-radius: 999px;
+        background: #f1f9fa;
+        color: #142E3F;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-description-toggle:hover {
+        background: #dff3f6;
+        border-color: rgba(20, 46, 63, 0.2);
+        transform: translateY(-1px);
+    }
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -363,6 +420,27 @@
                 thumbs[event.to].classList.add('active');
                 thumbs[event.to].setAttribute('aria-current', 'true');
             }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('[data-product-description]').forEach(function(description) {
+            const toggle = description.querySelector('.product-description-toggle');
+
+            if (!toggle) return;
+
+            const preview = description.querySelector('.product-description-preview');
+            const full = description.querySelector('.product-description-full');
+
+            toggle.addEventListener('click', function() {
+                const shouldExpand = toggle.getAttribute('aria-expanded') === 'false';
+
+                toggle.setAttribute('aria-expanded', shouldExpand ? 'true' : 'false');
+                preview.hidden = shouldExpand;
+                full.hidden = !shouldExpand;
+                toggle.textContent = shouldExpand ? toggle.dataset.lessText : toggle.dataset.moreText;
+            });
         });
     });
 </script>
