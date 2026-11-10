@@ -112,9 +112,9 @@
                             <h6>SKU: {{ $product->code }}</h6>
                         @endif
 
-                        <p class="product-details-text">
+                        <div class="product-details-text">
                             {!! $product->transNow?->description !!}
-                        </p>
+                        </div>
 
                         <div class="product-details-meta">
 
@@ -338,6 +338,11 @@
         .product-slider-next {
             right: 10px;
         }
+    }
+
+    .product-details-text,
+    .product-details-text * {
+        color: #142E3F !important;
     }
 </style>
 <script>

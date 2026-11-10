@@ -1687,7 +1687,8 @@ display:block;
 }
 
 .product-details-text{
-  color: #5f6f7a;
+    color: var(--main) !important;
+
   line-height: 1.9;
   font-size: 16px;
   margin-bottom: 24px;
